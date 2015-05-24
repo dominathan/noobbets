@@ -13,12 +13,3 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-
-function getNames(klass) {
-  var myArr = [];
-  var elms = $(klass);
-  for(var i = 0; i<elms.length; i++) {
-    myArr.push(elms[i].innerText)
-  }
-  return myArr;
-}

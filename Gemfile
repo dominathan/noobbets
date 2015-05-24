@@ -31,6 +31,7 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'simplecov'
+  gem 'better_errors'
 end
 
 group :production do
