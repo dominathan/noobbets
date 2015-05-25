@@ -14,7 +14,7 @@ module GetPlayerDetails
         Summoner.create_summoner(players_obj)
         sleep(1.0/3)
       rescue OpenURI::HTTPError, URI::InvalidURIError
-        print "this fucker doesn't exist"
+        puts $!.message
         sleep(1.0/3)
       end
       end
@@ -22,9 +22,8 @@ module GetPlayerDetails
   end
 
   class GetPlayerGames
-
     def self.add_games_to_summoner
-      Summoner.all.each do |summoner|
+      Summoner.all.reverse.each do |summoner|
       begin
         file = open(URI.escape("https://na.api.pvp.net/api/lol/na/v1.3/game/by-summoner/#{summoner.lol_id}/recent?api_key=#{ENV['LOL_API_KEY']}")).read
         sleep(1.0/5)
@@ -34,7 +33,7 @@ module GetPlayerDetails
           Game.create_game(game,summoner)
         end
       rescue OpenURI::HTTPError, URI::InvalidURIError
-        print 'riot games is being a bitch'
+        puts $!.message
         sleep(1.0/5)
       end
       end

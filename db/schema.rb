@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524184426) do
+ActiveRecord::Schema.define(version: 20150525144837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,10 +28,79 @@ ActiveRecord::Schema.define(version: 20150524184426) do
     t.integer  "total_damage_taken"
     t.integer  "total_damage_dealt_to_champion"
     t.integer  "killing_sprees"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "summoner_id"
     t.integer  "lol_game_id"
+    t.integer  "barracks_killed"
+    t.integer  "combat_player_score"
+    t.integer  "consumables_purchased"
+    t.integer  "damage_dealt_player"
+    t.integer  "double_kills"
+    t.integer  "first_blood"
+    t.integer  "gold"
+    t.integer  "gold_earned"
+    t.integer  "gold_spent"
+    t.integer  "item0"
+    t.integer  "item1"
+    t.integer  "item2"
+    t.integer  "item3"
+    t.integer  "item4"
+    t.integer  "item5"
+    t.integer  "item6"
+    t.integer  "items_purchased"
+    t.integer  "largest_critical_strike"
+    t.integer  "largest_killing_spree"
+    t.integer  "largest_multi_kill"
+    t.integer  "legedary_items_created"
+    t.integer  "level"
+    t.integer  "magic_damage_dealt_player"
+    t.integer  "magic_damage_dealt_to_champions"
+    t.integer  "magic_damage_taken"
+    t.integer  "minions_denied"
+    t.integer  "neutral_minions_killed"
+    t.integer  "neutral_minions_killed_enemy_jungle"
+    t.integer  "neutral_minions_killed_your_jungle"
+    t.boolean  "nexus_killed"
+    t.integer  "node_capture"
+    t.integer  "node_capture_assist"
+    t.integer  "node_neutralize"
+    t.integer  "node_neutralize_assist"
+    t.integer  "num_items_bought"
+    t.integer  "objective_player_score"
+    t.integer  "penta_kills"
+    t.integer  "physical_damage_dealt_player"
+    t.integer  "physical_damage_dealt_to_champions"
+    t.integer  "physical_damage_taken"
+    t.integer  "player_position"
+    t.integer  "player_role"
+    t.integer  "quadra_kills"
+    t.integer  "sight_wards_bought"
+    t.integer  "spell_1_cast"
+    t.integer  "spell_2_cast"
+    t.integer  "spell_3_cast"
+    t.integer  "spell_4_cast"
+    t.integer  "summon_spell_1_cast"
+    t.integer  "summon_spell_2_cast"
+    t.integer  "super_monster_killed"
+    t.integer  "team"
+    t.integer  "team_objective"
+    t.integer  "time_player"
+    t.integer  "total_heal"
+    t.integer  "total_player_score"
+    t.integer  "total_score_rank"
+    t.integer  "total_time_crowd_control_dealt"
+    t.integer  "total_units_healed"
+    t.integer  "triple_kills"
+    t.integer  "true_damage_dealt_player"
+    t.integer  "true_damage_dealt_to_champions"
+    t.integer  "true_damage_taken"
+    t.integer  "turrets_killed"
+    t.integer  "unreal_kills"
+    t.integer  "victory_point_total"
+    t.integer  "vision_wards_bought"
+    t.integer  "ward_killed"
+    t.integer  "ward_placed"
   end
 
   add_index "games", ["summoner_id"], name: "index_games_on_summoner_id", using: :btree
@@ -42,6 +111,24 @@ ActiveRecord::Schema.define(version: 20150524184426) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "games", "summoners"
 end
