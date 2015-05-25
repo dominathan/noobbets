@@ -4,6 +4,7 @@ class Game < ActiveRecord::Base
   validates_presence_of :lol_game_id
   validates_presence_of :create_date
   validates_presence_of :summoner_id
+  validates_uniqueness_of :lol_game_id, scope: :summoner_id
 
   def self.create_all_games(games_objects,summoner)
     games_objects['games'].each { |game| Game.create_game(game,summoner) }
