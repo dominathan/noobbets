@@ -1,9 +1,11 @@
 class Summoner < ActiveRecord::Base
   has_many :games
 
+  validates_presence_of :name, :lol_id
+
   def self.create_summoner(obj)
-    if Summoner.find_by(lol_id: obj.first.last['id'].to_i) == nil
-      Summoner.create(lol_id: obj.first.last["id"].to_i, name: obj.first.last['name'])
+    if Summoner.find_by(lol_id: obj.last['id']) == nil
+      Summoner.create(lol_id: obj.last["id"], name: obj.last['name'])
     end
   end
 

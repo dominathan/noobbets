@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525144837) do
+ActiveRecord::Schema.define(version: 20150525164300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20150525144837) do
     t.boolean  "win"
     t.integer  "minions_killed"
     t.datetime "create_date"
-    t.integer  "timePlayed"
     t.integer  "assists"
     t.integer  "total_damage_dealt"
     t.integer  "total_damage_taken"
@@ -52,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150525144837) do
     t.integer  "largest_critical_strike"
     t.integer  "largest_killing_spree"
     t.integer  "largest_multi_kill"
-    t.integer  "legedary_items_created"
+    t.integer  "legendary_items_created"
     t.integer  "level"
     t.integer  "magic_damage_dealt_player"
     t.integer  "magic_damage_dealt_to_champions"
@@ -85,7 +84,7 @@ ActiveRecord::Schema.define(version: 20150525144837) do
     t.integer  "super_monster_killed"
     t.integer  "team"
     t.integer  "team_objective"
-    t.integer  "time_player"
+    t.integer  "time_played"
     t.integer  "total_heal"
     t.integer  "total_player_score"
     t.integer  "total_score_rank"

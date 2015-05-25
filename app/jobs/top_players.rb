@@ -8,12 +8,12 @@ module TopPlayers
 
     def self.get_top_players(num)
       players = []
-      1.upto(num) do |i|
+      200.upto(num) do |i|
         website = "http://www.lolskill.net/top/highest-lolskillscore/page-#{i}?filterChampion=&filterRealm=NA"
         page  = Nokogiri::HTML(open(website))
         page.css('.summoner').each { |link| players << link.text }
       end
-      players.uniq
+      players.uniq - ["[Unknown Name]"]
     end
 
   end
