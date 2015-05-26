@@ -11,10 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525164300) do
+ActiveRecord::Schema.define(version: 20150526000637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bet_summoner_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "summoner_id"
+    t.integer  "bet_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "bet_summoner_users", ["bet_id"], name: "index_bet_summoner_users_on_bet_id", using: :btree
+  add_index "bet_summoner_users", ["summoner_id"], name: "index_bet_summoner_users_on_summoner_id", using: :btree
+  add_index "bet_summoner_users", ["user_id"], name: "index_bet_summoner_users_on_user_id", using: :btree
+
+  create_table "bet_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "bet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "bet_users", ["bet_id"], name: "index_bet_users_on_bet_id", using: :btree
+  add_index "bet_users", ["user_id"], name: "index_bet_users_on_user_id", using: :btree
+
+  create_table "bets", force: :cascade do |t|
+    t.integer  "max_entrants"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "entry_fee_in_cents"
+    t.string   "bet_style"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
 
   create_table "games", force: :cascade do |t|
     t.integer  "num_deaths"
@@ -129,5 +161,10 @@ ActiveRecord::Schema.define(version: 20150525164300) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "bet_summoner_users", "bets"
+  add_foreign_key "bet_summoner_users", "summoners"
+  add_foreign_key "bet_summoner_users", "users"
+  add_foreign_key "bet_users", "bets"
+  add_foreign_key "bet_users", "users"
   add_foreign_key "games", "summoners"
 end

@@ -3,11 +3,14 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+          #Add Pepper for bigger encryption?
 
- #Add Pepper for bigger encryption?
+  has_many :bets, through: :bet_users
+  has_many :bet_users
 
- # has_many :bets, through: :bets_users
- # has_many :bets_users
+  has_many :summoners, through: :bet_summoner_users
+  has_many :bet_summoner_users
+
 
 # LCS Players are scored accordingly:
 
