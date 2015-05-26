@@ -11,8 +11,7 @@
 </head>
 <body>
     <%= render 'shared/navbar' if controller.controller_name == "homes" %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <%= render 'shared/devise_flash_messages' %>
+      <%= yield %>
 </body>
 </html>
