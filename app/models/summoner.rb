@@ -1,5 +1,5 @@
 class Summoner < ActiveRecord::Base
-  has_many :games
+  has_and_belongs_to_many :games
 
   validates_presence_of :name, :lol_id
   validates_uniqueness_of :lol_id

@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  belongs_to :summoner
+  has_and_belongs_to_many :summoners
 
   validates_presence_of :lol_game_id
   validates_presence_of :create_date
@@ -11,8 +11,7 @@ class Game < ActiveRecord::Base
   end
 
   def self.create_game(game,summoner)
-    if !Game.find_by(lol_game_id: game['gameId'])
-            Game.create(lol_game_id: game["gameId"],
+    summoner.games.create(lol_game_id: game["gameId"],
                          num_deaths: game['stats']['numDeaths'] || 0,
                          champions_killed: game['stats']['championsKilled'] || 0,
                          win: game['stats']['win'],
@@ -89,9 +88,8 @@ class Game < ActiveRecord::Base
                          victory_point_total: game['stats']['victoryPointTotal'] || 0,
                          vision_wards_bought: game['stats']['visionWardsBought'] || 0,
                          ward_killed: game['stats']["wards_killed"] || 0,
-                         ward_placed: game['stats']["wardPlaced"],
-                         summoner_id: Summoner.find_by(lol_id: summoner.lol_id).id)
-    end
+                         ward_placed: game['stats']["wardPlaced"] || 0,
+                         summoner_id: Summoner.find(summoner.id).id)
   end
 
 end

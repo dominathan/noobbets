@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526000637) do
+ActiveRecord::Schema.define(version: 20150526021100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,6 +136,14 @@ ActiveRecord::Schema.define(version: 20150526000637) do
 
   add_index "games", ["summoner_id"], name: "index_games_on_summoner_id", using: :btree
 
+  create_table "games_summoners", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "summoner_id"
+  end
+
+  add_index "games_summoners", ["game_id"], name: "index_games_summoners_on_game_id", using: :btree
+  add_index "games_summoners", ["summoner_id"], name: "index_games_summoners_on_summoner_id", using: :btree
+
   create_table "summoners", force: :cascade do |t|
     t.integer  "lol_id"
     t.string   "name"
@@ -167,4 +175,6 @@ ActiveRecord::Schema.define(version: 20150526000637) do
   add_foreign_key "bet_users", "bets"
   add_foreign_key "bet_users", "users"
   add_foreign_key "games", "summoners"
+  add_foreign_key "games_summoners", "games"
+  add_foreign_key "games_summoners", "summoners"
 end
