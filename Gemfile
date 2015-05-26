@@ -30,8 +30,10 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
   gem 'simplecov'
   gem 'better_errors'
+  gem 'capybara'
 end
 
 group :production do

@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
   has_many :summoners, through: :bet_summoner_users
   has_many :bet_summoner_users
 
-
+  validates_presence_of :username
+  validates_uniqueness_of :username
 # LCS Players are scored accordingly:
 
   # 2 points per kill
