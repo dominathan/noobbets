@@ -10,14 +10,20 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 <body>
+  <% if controller.controller_name == "homes" %>
+    <%= render 'shared/navbar' %>
+  <% else %>
+    <%= render 'shared/default_nav' %>
+  <% end %>
 
-  <%= render 'shared/navbar' if controller.controller_name == "homes" %>
-
-  <div class="container">
+  <div class="container-fluid">
     <%= render 'shared/devise_flash_messages' %>
   </div>
 
-  <%= yield %>
-
+  <% if controller.controller_name != "homes" %>
+    <%= content_tag :div, yield, class: "container" %>
+  <% else %>
+    <%= yield %>
+  <% end %>
 </body>
 </html>
