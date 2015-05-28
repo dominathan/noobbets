@@ -38,6 +38,26 @@ RSpec.describe Game, type: :model do
       expect(game.save).to be_truthy
     end
 
+    it "should be allowed to have the same lol_game_id for different summoners, \n
+        but not the same summoner" do
+      game = Game.new
+      game.lol_game_id = 1
+      game.create_date = DateTime.now
+      game.summoner_id = summoner2.id
+      expect(game.save).to be(true)
+
+      game2 = Game.new
+      game2.lol_game_id = 1
+      game2.create_date = DateTime.now
+      game2.summoner_id = summoner2.id
+      expect(game2.save).to be(false)
+
+      game3 = Game.new
+      game3.lol_game_id = 1
+      game3.create_date = DateTime.now
+      game3.summoner_id = summoner1.id
+      expect(game3.save).to be(true)
+    end
   end
 
 

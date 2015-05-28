@@ -31,7 +31,7 @@ module GetPlayerDetails
 
   class GetPlayerGames
     def self.add_games_to_summoner
-      Summoner.all.reverse.each do |summoner|
+      Summoner.all.each do |summoner|
       begin
         file = open(URI.escape("https://na.api.pvp.net/api/lol/na/v1.3/game/by-summoner/#{summoner.lol_id}/recent?api_key=#{ENV['LOL_API_KEY']}")).read
         game_object = JSON.parse(file)
