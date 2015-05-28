@@ -4,6 +4,5 @@ Rails.application.routes.draw do
 
   resources :bets
   root 'homes#index'
-  get '/home' => 'homes#index'
 
 end

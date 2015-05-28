@@ -7,6 +7,20 @@ $bgHighlight    : #dd876f;
 $colDefault     : #ecf0f1;
 $colHighlight   : #ecdbff;
 $dropDown       : false;
+
+.panel {
+  text-align: center;
+  .heading {
+    background-color: $bgDefault;
+    border-radius: 2px;
+    color: white;
+  }
+}
+
+.bet-panes {
+  border: 2px solid $bgHighlight;
+}
+
 .navbar-default {
   background-color: $bgDefault;
   border-color: $bgHighlight;
