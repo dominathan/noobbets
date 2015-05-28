@@ -37,7 +37,9 @@ RSpec.describe Game, type: :model do
       game.summoner_id = summoner2.id
       expect(game.save).to be_truthy
     end
+
   end
+
 
   context 'when creating a game' do
     it 'should be correct from the data given' do
