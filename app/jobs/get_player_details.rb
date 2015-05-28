@@ -2,7 +2,7 @@ require 'open-uri'
 require 'uri'
 require 'json'
 #GetPlayerDetails::GetPlayerGames.add_games_to_summoner
-#GetPlayerDetails::GetPlayerByName.get_player_object(TopPlayers::Tops.get_top_players(600))
+#GetPlayerDetails::GetPlayerByName.get_player_object(TopPlayers::Tops.get_top_players(400))
 
 module GetPlayerDetails
   class GetPlayerByName
