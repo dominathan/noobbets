@@ -1,8 +1,9 @@
+<br>
 <%= @bets.each do |bet| %>
-  <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
     <div class="panel panel default bet-panes">
       <div class="panel heading">
-        <h3><%="#{bet.bet_type} | #{number_to_currency(bet.cost / 100)}" %></h3>
+        <h4><%="Type: #{bet.bet_type} | Buy-in: #{number_to_currency(bet.cost / 100)}" %></h4>
       </div>
       <div class="panel body">
         <h4><%= "Start Time: #{bet.start_time.strftime('%b %d | %I:%M:%S %p')}" %><br> <%="End Time: #{bet.end_time.strftime('%b %d | %I:%M:%S %p')}"%></h4>
