@@ -18,7 +18,7 @@ RSpec.describe Bet, type: :model do
       expect(bet.save).to be(true)
     end
 
-    it 'should have start_time greater than end_time' do
+    it 'should have start_time that begins before the end_time' do
       bet = Bet.new(entrants: 10, completed: false, bet_type: "winner",
                     cost: 1000, start_time: DateTime.now, end_time: DateTime.now - 1.week)
       expect(bet.save).to be(false)

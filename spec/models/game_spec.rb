@@ -5,6 +5,7 @@ RSpec.describe Game, type: :model do
   let(:games_object) { JSON.parse(File.open('lib/assets/games.json').read) }
   let(:stubbed_game1) { games_object['games'].first }
   let(:stubbed_game2) { games_object['games'].last }
+  let(:stubbed_game3) { games_object['games'][3] }
 
   let(:summoner1) { FactoryGirl.create(:summoner, id: 1) }
   let(:summoner2) { FactoryGirl.create(:summoner, id: 2) }
@@ -228,6 +229,45 @@ RSpec.describe Game, type: :model do
       expect(game2.vision_wards_bought).to be(0)
       expect(game2.ward_killed).to be(1)
       expect(game2.ward_placed).to be(6)
+    end
+
+    it 'should always be right so Im going to make sure with extra tests' do
+      game3 = Game.create_game(stubbed_game3,summoner2)
+
+      expect(game3.num_deaths).to be(0)
+      expect(game3.champions_killed).to be(3)
+      expect(game3.win).to be(true)
+      expect(game3.minions_killed).to be(162)
+      expect(game3.create_date).equal?(DateTime.new(2015,4,5,18,24,45))
+      expect(game3.assists).to be(6)
+      expect(game3.total_damage_dealt).to be(101100)
+      expect(game3.total_damage_taken).to be(4737)
+      expect(game3.total_damage_dealt_to_champion).to be(12513)
+      expect(game3.killing_sprees).to be(1)
+      expect(game3.summoner_id).to be(summoner2.id)
+      expect(game3.lol_game_id).to be(1785489082)
+      expect(game3.barracks_killed).to be(0)
+      expect(game3.combat_player_score).to be(0)
+      expect(game3.consumables_purchased).to be(0)
+      expect(game3.damage_dealt_player).to be(0)
+      expect(game3.first_blood).to be(0)
+      expect(game3.gold).to be(0)
+      expect(game3.gold_earned).to be(8011)
+      expect(game3.gold_spent).to be(7930)
+      expect(game3.largest_killing_spree).to be(3)
+      expect(game3.largest_multi_kill).to be(1)
+      expect(game3.level).to be(13)
+      expect(game3.magic_damage_dealt_player).to be(88099)
+      expect(game3.magic_damage_dealt_to_champions).to be(11898)
+      expect(game3.magic_damage_taken).to be(2790)
+      expect(game3.neutral_minions_killed).to be(4)
+      expect(game3.neutral_minions_killed_enemy_jungle).to be(1)
+      expect(game3.neutral_minions_killed_your_jungle).to be(3)
+      expect(game3.physical_damage_dealt_to_champions).to be(614)
+      expect(game3.team).to be(100)
+      expect(game3.true_damage_taken).to be(148)
+      expect(game3.turrets_killed).to be(2)
+      expect(game3.ward_placed).to be(9)
     end
 
   end

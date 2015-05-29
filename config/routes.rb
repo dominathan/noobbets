@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
+  root 'homes#index'
+
   devise_for :users
 
-  resources :bets
-  root 'homes#index'
+  resources :bets do
+  end
+
 
 end
