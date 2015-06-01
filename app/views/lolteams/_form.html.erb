@@ -1,0 +1,35 @@
+<%= form_for(@lolteam, url: { controller: 'lolteams', action: 'create' }) do |f| %>
+
+
+  <div class="field">
+    <%= f.label :slot1 %><br>
+    <%= f.select :slot1, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :slot2 %><br>
+    <%= f.select :slot2, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :slot3 %><br>
+    <%= f.select :slot3, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :slot4 %><br>
+    <%= f.select :slot4, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :slot5 %><br>
+    <%= f.select :slot5, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :slot6 %><br>
+    <%= f.select :slot6, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :slot7 %><br>
+    <%= f.select :slot7, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528230434) do
+ActiveRecord::Schema.define(version: 20150531235441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,23 @@ ActiveRecord::Schema.define(version: 20150528230434) do
   add_index "games_summoners", ["game_id"], name: "index_games_summoners_on_game_id", using: :btree
   add_index "games_summoners", ["summoner_id"], name: "index_games_summoners_on_summoner_id", using: :btree
 
+  create_table "lolteams", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "bet_id"
+    t.integer  "slot1"
+    t.integer  "slot2"
+    t.integer  "slot3"
+    t.integer  "slot4"
+    t.integer  "slot5"
+    t.integer  "slot6"
+    t.integer  "slot7"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "lolteams", ["bet_id"], name: "index_lolteams_on_bet_id", using: :btree
+  add_index "lolteams", ["user_id"], name: "index_lolteams_on_user_id", using: :btree
+
   create_table "summoners", force: :cascade do |t|
     t.integer  "lol_id"
     t.string   "name"
@@ -189,4 +206,6 @@ ActiveRecord::Schema.define(version: 20150528230434) do
   add_foreign_key "games", "summoners"
   add_foreign_key "games_summoners", "games"
   add_foreign_key "games_summoners", "summoners"
+  add_foreign_key "lolteams", "bets"
+  add_foreign_key "lolteams", "users"
 end

@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :bets
 
-  has_many :summoners, through: :bet_summoner_users
-  has_many :bet_summoner_users
+  has_many :lolteams
 
   validates_presence_of :username
   validates_uniqueness_of :username

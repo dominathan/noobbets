@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Lolteams</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Bet</th>
+      <th>Slot1</th>
+      <th>Slot2</th>
+      <th>Slot3</th>
+      <th>Slot4</th>
+      <th>Slot5</th>
+      <th>Slot6</th>
+      <th>Slot7</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lolteams.each do |lolteam| %>
+      <tr>
+        <td><%= lolteam.user %></td>
+        <td><%= lolteam.bet %></td>
+        <td><%= lolteam.slot1 %></td>
+        <td><%= lolteam.slot2 %></td>
+        <td><%= lolteam.slot3 %></td>
+        <td><%= lolteam.slot4 %></td>
+        <td><%= lolteam.slot5 %></td>
+        <td><%= lolteam.slot6 %></td>
+        <td><%= lolteam.slot7 %></td>
+        <td><%= link_to 'Show', lolteam %></td>
+        <td><%= link_to 'Edit', edit_lolteam_path(lolteam) %></td>
+        <td><%= link_to 'Destroy', lolteam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lolteam', new_lolteam_path %>
