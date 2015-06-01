@@ -1,6 +1,6 @@
 class LolteamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_lolteam, only: [:show, :edit, :update, :destroy]
+  before_action :set_lolteam, :set_bet, only: [:show, :edit, :update, :destroy]
 
   def index
     @lolteams = Lolteam.where(user_id: current_user.id)
@@ -18,13 +18,12 @@ class LolteamsController < ApplicationController
 
   def create
     @lolteam = Lolteam.new(lolteam_params)
-    @lolteam.bet_id = Bet.find(params[:bet_id])
+    @lolteam.bet_id = @bet.id
     @lolteam.user_id = current_user.id
     respond_to do |format|
       if @lolteam.save
         # Add the User to counter for the bets if you join.
-        bet = Bet.find(params[:bet_id])
-        bet.update_attribute(:user_count, bet.user_count + 1)
+        @bet.update_attribute(:user_count, bet.user_count + 1)
         format.html { redirect_to bets_path, notice: 'Lolteam was successfully created.' }
       else
         format.html { render :new }
@@ -56,6 +55,10 @@ class LolteamsController < ApplicationController
   private
     def set_lolteam
       @lolteam = Lolteam.find(params[:id])
+    end
+
+    def set_bet
+      @bet = Bet.find(params[:bet_id])
     end
 
     def lolteam_params

@@ -4,8 +4,12 @@ FactoryGirl.define do
     n
   end
 
+  sequence :name do |n|
+    "RandomName#{n}"
+  end
+
   factory :summoner, class: "Summoner" do
-    name      "Jogadas"
+    name
     lol_id
   end
 end
