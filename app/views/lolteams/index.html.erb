@@ -2,10 +2,9 @@
 
 <h1>Listing Lolteams</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>User</th>
       <th>Bet</th>
       <th>Slot1</th>
       <th>Slot2</th>
@@ -21,7 +20,6 @@
   <tbody>
     <% @lolteams.each do |lolteam| %>
       <tr>
-        <td><%= lolteam.user %></td>
         <td><%= lolteam.bet %></td>
         <td><%= lolteam.slot1 %></td>
         <td><%= lolteam.slot2 %></td>
@@ -30,9 +28,9 @@
         <td><%= lolteam.slot5 %></td>
         <td><%= lolteam.slot6 %></td>
         <td><%= lolteam.slot7 %></td>
-        <td><%= link_to 'Show', lolteam %></td>
-        <td><%= link_to 'Edit', edit_lolteam_path(lolteam) %></td>
-        <td><%= link_to 'Destroy', lolteam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', bet_lolteam_path(5, lolteam) %></td>
+        <td><%= link_to 'Edit', "#" %></td>
+        <td><%= link_to 'Destroy', "#", data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +38,3 @@
 
 <br>
 
-<%= link_to 'New Lolteam', new_lolteam_path %>

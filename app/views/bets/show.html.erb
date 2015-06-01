@@ -1,4 +1,4 @@
-<h3>Number of Entrants | <%=@bet.users.count %> / <%= @bet.entrants %><br></h3>
+<h3>Number of Entrants | <%=@bet.user_count %> / <%= @bet.entrants %><br></h3>
 <h3>Start: <%= @bet.start_time %><br></h3>
 <h3>End: <%= @bet.end_time %><br></h3>
 <h3>Cost: <%= @bet.cost %><br></h3>
@@ -6,4 +6,4 @@
 <h3>Open: <%= @bet.completed %><br></h3>
 <p>Other shit about your current account limit, rules, yada yada</p><br>
 
-<%= link_to "Join Bet", new_bet_lolteam_path(params[:id]) %>
+<%= link_to "Join Bet", new_bet_lolteam_path(params[:id]), class: "btn btn-danger btn-lg" %>

@@ -7,7 +7,7 @@
       </div>
       <div class="panel body">
         <h4><%= "Start Time: #{bet.start_time.strftime('%b %d | %I:%M:%S %p')}" %><br> <%="End Time: #{bet.end_time.strftime('%b %d | %I:%M:%S %p')}"%></h4>
-        <h3><%= "#{bet.users.count} of #{bet.entrants}" %></h3>
+        <h3><%= "#{bet.user_count} of #{bet.entrants}" %></h3>
         <%= link_to "Details", bet_path(bet), class: 'btn btn-lg btn-danger' %>
       </div>
     </div>
