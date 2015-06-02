@@ -10,6 +10,7 @@ class Bet < ActiveRecord::Base
                cost: cost, start_time: start_time, end_time: end_time)
   end
 
+
   private
     def completed_starts_false
       self.completed == false
