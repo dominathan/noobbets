@@ -33,20 +33,26 @@ class Summoner < ActiveRecord::Base
 
   def scoring_categories
     ['champions_killed','num_deaths','assists','minions_killed','triple_kills',
-      'quadra_kills','penta_kills','first_blood']
+      'quadra_kills','penta_kills','first_blood','win']
   # win is also an attribute, but we don't want to loop over it.
   end
 
   def scoring_values
-    [2.0,-0.5,1.5,0.01,2.0,5.0,10.0,3]
+    [2.0,-0.5,1.5,0.01,2.0,5.0,10.0,3,3]
   end
 
   def score_summoner_games_over_bet_timeframe(bet_id,desired_attribute)
     bet = Bet.find(bet_id)
-    #[kills*2, deaths*-0.5,assist*1.5,minions_killed*0.01, triple_kill*2, quadra_kill*5, penta_kill*10, assist > 10 ? 2 : 0, kills > 10 ? 2 : 0, first_blood ? 3 : 0]
-    games.where("create_date >= :start_time AND create_date <= :end_time",
-                 {start_time: bet.start_time, end_time: bet.end_time})
-         .sum(desired_attribute)
+    if desired_attribute == 'win'
+      games.where("create_date >= :start_time AND create_date <= :end_time",
+                   {start_time: bet.start_time, end_time: bet.end_time})
+           .where(win: true)
+           .count
+    else
+      games.where("create_date >= :start_time AND create_date <= :end_time",
+                   {start_time: bet.start_time, end_time: bet.end_time})
+           .sum(desired_attribute)
+    end
   end
 
   def self.create_summoner(obj)
