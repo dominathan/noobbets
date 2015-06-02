@@ -11,20 +11,12 @@ class Summoner < ActiveRecord::Base
   # 2 points for a triple kill
   # 5 points for a quadra kill (doesn't also count as a triple kill)
   # 10 points for a penta kill (doesn't also count as a quadra kill)
-  # 2 points if a player attains 10 or more assists or kills in a game (this bonus only applies once)
   # 3 points for first blood
   # 3 points for win
 
   def final_score(bet_id)
-    # Still missing points for winning
-    total_value_of_columns = array_of_scored_attributes(bet_id)
-    final_score = total_value_of_columns.map.with_index { |elm,idx| elm * scoring_values[idx] }
-                                        .reduce(&:+)
-    # This will allow for better testing and transition.
-    if total_value_of_columns[2] > 10 || total_value_of_columns[0] > 10
-      final_score += 2
-    end
-    final_score
+    array_of_scored_attributes(bet_id).map.with_index { |elm,idx| elm * scoring_values[idx] }
+                                      .reduce(&:+)
   end
 
   def array_of_scored_attributes(bet_id)
@@ -34,7 +26,6 @@ class Summoner < ActiveRecord::Base
   def scoring_categories
     ['champions_killed','num_deaths','assists','minions_killed','triple_kills',
       'quadra_kills','penta_kills','first_blood','win']
-  # win is also an attribute, but we don't want to loop over it.
   end
 
   def scoring_values
