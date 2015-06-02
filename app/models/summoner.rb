@@ -18,6 +18,9 @@ class Summoner < ActiveRecord::Base
   def final_score(bet_id)
     # Still missing points for winning
     myarr = array_of_scored_attributes(bet_id)
+    # Should create a new array of the scoring mechanism above, and then call
+    # myarr.map.with_index { |elm, idx| elm * otherarr[idx] }
+    # This will allow for better testing and transition.
     total = [myarr[0]*2.0,myarr[1]*-0.5,myarr[2]*1.5,myarr[3]*0.01,myarr[4]*2.0,
                     myarr[5]*5.0,myarr[6]*10.0,myarr[7]*3.reduce(&:+)
     if myarr[3] > 10 || myarr[0] > 10
