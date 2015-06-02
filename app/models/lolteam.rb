@@ -7,7 +7,6 @@ class Lolteam < ActiveRecord::Base
 
   before_save :max_entrants_limit_reached?, :unique_summoners_per_lolteam?
 
-
   private
     def max_entrants_limit_reached?
       self.bet.user_count < self.bet.entrants

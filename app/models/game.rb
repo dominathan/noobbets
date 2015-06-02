@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  has_and_belongs_to_many :summoners
+  belongs_to :summoner
 
   validates_presence_of :lol_game_id, :create_date, :summoner_id
   validates_uniqueness_of :lol_game_id, scope: :summoner_id
