@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
           #Add Pepper for bigger encryption?
 
-  has_and_belongs_to_many :bets
+  has_many :bets, through: :bet_users
+  has_many :bet_users
 
   has_many :lolteams
 

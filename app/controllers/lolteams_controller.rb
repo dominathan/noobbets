@@ -25,7 +25,7 @@ class LolteamsController < ApplicationController
     respond_to do |format|
       if @lolteam.save
         # Add the User to counter for the bets if you join.
-        @bet.update_attribute(:user_count, @bet.user_count + 1)
+        @bet.bet_users.create!(bet_id: @bet.id, user_id: current_user.id)
         format.html { redirect_to bets_path, notice: 'Lolteam was successfully created.' }
       else
         format.html { render :new }

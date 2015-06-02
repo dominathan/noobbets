@@ -9,7 +9,7 @@ class Lolteam < ActiveRecord::Base
 
   private
     def max_entrants_limit_reached?
-      self.bet.user_count < self.bet.entrants
+      self.bet.users.count < self.bet.entrants
     end
 
     def unique_summoners_per_lolteam?
