@@ -4,7 +4,7 @@
 <h3>Cost: <%= @bet.cost %><br></h3>
 <h3>Type: <%= @bet.bet_type %><br></h3>
 <h3>Open: <%= !@bet.completed %><br></h3>
-<h3>PEOPLE JOINED</h3>
+<h3>PEOPLE JOINED </h3>
 <% @bet.users.each do |user| %>
   <p> <%=user.username%></p>
 <%end%>

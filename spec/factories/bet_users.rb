@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :bet_user do
     user nil
-bet ""
+    bet ""
   end
 
 end

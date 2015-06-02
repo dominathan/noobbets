@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Lolteam, type: :model do
   let(:user1) { FactoryGirl.create(:user) }
   let(:user2) { FactoryGirl.create(:user) }
+  let(:user3) { FactoryGirl.create(:user) }
+
   let(:bet1)  { FactoryGirl.create(:bet) }
   let(:bet2)  { FactoryGirl.create(:bet) }
   let(:summoner1) { FactoryGirl.create(:summoner) }
@@ -52,13 +54,14 @@ RSpec.describe Lolteam, type: :model do
     # end
 
     it 'cannot be saved if the bet.user_count is over the bet.max_entrants' do
-      bet1.update_attributes(user_count: 9, entrants: 10)
+      bet1.update_attributes(entrants: 2)
+      bet1.bet_users.create!(user_id: user1.id,bet_id: bet1.id)
       lol = Lolteam.new(slot1: summoner1.id, slot2: summoner2.id, user_id: user1.id, bet_id: bet1.id,
                         slot3: summoner3.id, slot4: summoner4.id, slot5: summoner5.id, slot6: summoner6.id,
                         slot7: summoner7.id)
       expect(lol.save).to be(true)
-      bet1.update_attributes(user_count: 10, entrants: 10)
-      lol2 = Lolteam.new(slot1: summoner1.id, slot2: summoner2.id, user_id: user1.id, bet_id: bet1.id,
+      bet1.bet_users.create!(user_id: user2.id,bet_id: bet1.id)
+      lol2 = Lolteam.new(slot1: summoner1.id, slot2: summoner2.id, user_id: user2 .id, bet_id: bet1.id,
                   slot3: summoner3.id, slot4: summoner4.id, slot5: summoner5.id, slot6: summoner6.id,
                   slot7: summoner7.id)
       expect(lol2.save).to be(false)
