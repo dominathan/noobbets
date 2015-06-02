@@ -17,28 +17,28 @@ class Summoner < ActiveRecord::Base
 
   def final_score(bet_id)
     # Still missing points for winning
-    myarr = array_of_scored_attributes(bet_id)
-    # Should create a new array of the scoring mechanism above, and then call
-    # myarr.map.with_index { |elm, idx| elm * otherarr[idx] }
+    total_value_of_columns = array_of_scored_attributes(bet_id)
+    final_score = total_value_of_columns.map.with_index { |elm,idx| elm * scoring_values[idx] }
+                                        .reduce(&:+)
     # This will allow for better testing and transition.
-    total = [myarr[0]*2.0,myarr[1]*-0.5,myarr[2]*1.5,myarr[3]*0.01,myarr[4]*2.0,
-                    myarr[5]*5.0,myarr[6]*10.0,myarr[7]*3].reduce(&:+)
-    if myarr[3] > 10 || myarr[0] > 10
-      total += 2
+    if total_value_of_columns[2] > 10 || total_value_of_columns[0] > 10
+      final_score += 2
     end
+    final_score
   end
 
   def array_of_scored_attributes(bet_id)
-    total_sum_per_scoring_category = scoring_categories.map do |att|
-      score_summoner_games_over_bet_timeframe(bet_id,att)
-    end
-    total_sum_per_scoring_category
+    scoring_categories.map { |att| score_summoner_games_over_bet_timeframe(bet_id,att) }
   end
 
   def scoring_categories
     ['champions_killed','num_deaths','assists','minions_killed','triple_kills',
       'quadra_kills','penta_kills','first_blood']
   # win is also an attribute, but we don't want to loop over it.
+  end
+
+  def scoring_values
+    [2.0,-0.5,1.5,0.01,2.0,5.0,10.0,3]
   end
 
   def score_summoner_games_over_bet_timeframe(bet_id,desired_attribute)

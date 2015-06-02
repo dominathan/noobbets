@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602133857) do
+ActiveRecord::Schema.define(version: 20150602222838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,14 +49,6 @@ ActiveRecord::Schema.define(version: 20150602133857) do
     t.boolean  "completed"
     t.integer  "user_count", default: 0
   end
-
-  create_table "bets_users", force: :cascade do |t|
-    t.integer "bet_id"
-    t.integer "user_id"
-  end
-
-  add_index "bets_users", ["bet_id"], name: "index_bets_users_on_bet_id", using: :btree
-  add_index "bets_users", ["user_id"], name: "index_bets_users_on_user_id", using: :btree
 
   create_table "games", force: :cascade do |t|
     t.integer  "num_deaths"
@@ -202,8 +194,6 @@ ActiveRecord::Schema.define(version: 20150602133857) do
   add_foreign_key "bet_summoner_users", "users"
   add_foreign_key "bet_users", "bets"
   add_foreign_key "bet_users", "users"
-  add_foreign_key "bets_users", "bets"
-  add_foreign_key "bets_users", "users"
   add_foreign_key "games", "summoners"
   add_foreign_key "games_summoners", "games"
   add_foreign_key "games_summoners", "summoners"
