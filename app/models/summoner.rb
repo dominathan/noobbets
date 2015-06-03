@@ -32,11 +32,11 @@ class Summoner < ActiveRecord::Base
     [2.0,-0.5,1.5,0.01,2.0,5.0,10.0,3,3]
   end
 
-  def score_summoner_games_over_bet_timeframe(bet_id,desired_attribute)
+  def score_summoner_games_over_bet_timeframe(bet_id,desired_attribute,starting=nil,ending=nil)
     bet = Bet.find(bet_id)
     if desired_attribute == 'win'
       games.where("create_date >= :start_time AND create_date <= :end_time",
-                   {start_time: bet.start_time, end_time: bet.end_time})
+                   {start_time: starting || bet.start_time, end_time: ending || bet.end_time})
            .where(win: true)
            .count
     else

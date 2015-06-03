@@ -8,7 +8,7 @@ RSpec.describe Bet, type: :model do
     it 'should require all attribtues' do
       bet = Bet.new
       bet.completed = false
-      bet.start_time = DateTime.now
+      bet.start_time = DateTime.now + 2.days
       bet.end_time = DateTime.now + 1.week
       bet.entrants = 10
       expect(bet.save).to be(false)

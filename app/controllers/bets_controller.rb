@@ -9,4 +9,8 @@ class BetsController < ApplicationController
     @bet = Bet.find(params[:id])
   end
 
+  def my_noobbets
+    @bets = current_user.bets
+  end
+
 end

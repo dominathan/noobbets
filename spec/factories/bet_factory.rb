@@ -1,8 +1,8 @@
 FactoryGirl.define do
 
   factory :bet, class: "Bet" do
-    start_time       DateTime.now
-    end_time         DateTime.now + 1.day
+    start_time       DateTime.now + 1.day
+    end_time         DateTime.now + 2.days
     entrants         10
     user_count       0
     cost             1000

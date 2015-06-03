@@ -1,0 +1,41 @@
+<h1>MY NOOBBETs</h1>
+
+<% @bets.each do |bet| %>
+  <h3>Noobbet Type: <%=bet.bet_type%></h3>
+  <h3>Start: <%=bet.start_time%></h3>
+  <h3>End: <%=bet.end_time%></h3>
+
+<table class="table table-hover">
+  <thead>
+    <th>Summoner</th>
+    <th>Score</th>
+    <th>Champion Kills</th>
+    <th>Deaths</th>
+    <th>Assists</th>
+    <th>Minions Killed</th>
+    <th>Triple Kills</th>
+    <th>Quadra Kills</th>
+    <th>Penta Kills</th>
+    <th>Wins</th>
+  </thead>
+  <tbody>
+    <% bet.lolteams.where(user_id: current_user.id).pluck(:slot1,:slot2,:slot3,:slot4,:slot5,:slot6,:slot7).flatten.each do |sum_id| %>
+      <tr>
+      <% summoner = Summoner.find(sum_id) %>
+        <td><%= summoner.name %></td>
+        <td><%= summoner.final_score(bet.id) %></td>
+        <td><%= summoner.score_summoner_games_over_bet_timeframe(bet.id,'champions_killed',bet.start_time,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_bet_timeframe(bet.id,'num_deaths',bet.start_time,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_bet_timeframe(bet.id,'assists',bet.start_time,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_bet_timeframe(bet.id,'minions_killed',bet.start_time,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_bet_timeframe(bet.id,'triple_kills',bet.start_time,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_bet_timeframe(bet.id,'quadra_kills',bet.start_time,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_bet_timeframe(bet.id,'penta_kills',bet.start_time,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_bet_timeframe(bet.id,'win',bet.start_time,DateTime.now) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% end %>
+
