@@ -54,7 +54,7 @@ RSpec.describe Lolteam, type: :model do
     #   expect(bet1.user_count).to be(10)
     # end
 
-    it 'cannot be saved if the bet.user_count is over the bet.max_entrants' do
+    it 'cannot be saved if the bet.users.count is over the bet.max_entrants' do
       bet1.update_attributes(entrants: 2)
       bet1.bet_users.create!(user_id: user1.id,bet_id: bet1.id)
       lol = Lolteam.new(slot1: summoner1.id, slot2: summoner2.id, user_id: user1.id, bet_id: bet1.id,
