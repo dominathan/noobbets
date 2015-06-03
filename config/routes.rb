@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+
+
   root 'homes#index'
 
   devise_for :users
@@ -9,6 +11,8 @@ Rails.application.routes.draw do
   resources :bets do
     resources :lolteams
   end
+
+  resources :summoners, only: [:index, :show]
 
 
 end

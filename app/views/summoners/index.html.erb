@@ -1,0 +1,32 @@
+<h1>Summoners Stats</h1>
+<h4>Over the Past Week</h4>
+
+<table class="table table-hover">
+<thead>
+  <th>Summoner Name</th>
+  <th>Score</th>
+  <th>Champions Killed</th>
+  <th>Deaths</th>
+  <th>Assists</th>
+  <th>Minions Killed</th>
+  <th>Triple Kills</th>
+  <th>Quadra Kills</th>
+  <th>Penta Kills</th>
+  <th>Wins</th>
+</thead>
+<tbody>
+  <% @summoners.each do |summoner| %>
+  <tr>
+    <td><%= link_to summoner.name, summoner_path(summoner.id) %></td>
+    <td><%= summoner.final_score_over_user_timeframe(DateTime.now - 7.days,DateTime.now) %></td>
+    <td><%= summoner.score_summoner_games_over_user_timeframe('champions_killed',DateTime.now - 7.days,DateTime.now) %></td>
+    <td><%= summoner.score_summoner_games_over_user_timeframe('num_deaths',DateTime.now - 7.days,DateTime.now) %></td>
+    <td><%= summoner.score_summoner_games_over_user_timeframe('assists',DateTime.now - 7.days,DateTime.now) %></td>
+    <td><%= summoner.score_summoner_games_over_user_timeframe('minions_killed',DateTime.now - 7.days,DateTime.now) %></td>
+    <td><%= summoner.score_summoner_games_over_user_timeframe('triple_kills',DateTime.now - 7.days,DateTime.now) %></td>
+    <td><%= summoner.score_summoner_games_over_user_timeframe('quadra_kills',DateTime.now - 7.days,DateTime.now) %></td>
+    <td><%= summoner.score_summoner_games_over_user_timeframe('penta_kills',DateTime.now - 7.days,DateTime.now) %></td>
+    <td><%= summoner.score_summoner_games_over_user_timeframe('win',DateTime.now - 7.days,DateTime.now) %></td>
+  </tr>
+</tbody>
+<% end %>

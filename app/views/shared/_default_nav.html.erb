@@ -16,6 +16,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     <% if user_signed_in? %>
                     <li>
+                        <%= link_to "Summoner Stats", summoners_path %>
+                    </li>
+                    <li>
                         <%= link_to "All Noobbets", bets_path %>
                     </li>
                     <li>

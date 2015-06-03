@@ -33,15 +33,37 @@ class Summoner < ActiveRecord::Base
   end
 
   def score_summoner_games_over_bet_timeframe(bet_id,desired_attribute,starting=nil,ending=nil)
-    bet = Bet.find(bet_id)
+    bet = Bet.find(bet_id) || Bet.first
     if desired_attribute == 'win'
       games.where("create_date >= :start_time AND create_date <= :end_time",
-                   {start_time: starting || bet.start_time, end_time: ending || bet.end_time})
+                   {start_time: bet.start_time, end_time: bet.end_time})
            .where(win: true)
            .count
     else
       games.where("create_date >= :start_time AND create_date <= :end_time",
                    {start_time: bet.start_time, end_time: bet.end_time})
+           .sum(desired_attribute)
+    end
+  end
+
+  def final_score_over_user_timeframe(starting,ending)
+    array_of_score_attribute_over_timeframe(starting,ending).map.with_index { |elm,idx| elm *scoring_values[idx] }
+                                                            .reduce(&:+)
+  end
+
+  def array_of_score_attribute_over_timeframe(starting,ending)
+    scoring_categories.map { |att| score_summoner_games_over_user_timeframe(att,starting,ending) }
+  end
+
+  def score_summoner_games_over_user_timeframe(desired_attribute,starting,ending)
+    if desired_attribute == 'win'
+      games.where("create_date >= :start_time AND create_date <= :end_time",
+                   {start_time: starting, end_time: ending})
+           .where(win: true)
+           .count
+    else
+      games.where("create_date >= :start_time AND create_date <= :end_time",
+                   {start_time: starting, end_time: ending})
            .sum(desired_attribute)
     end
   end
