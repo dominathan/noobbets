@@ -18,7 +18,7 @@
     <tr>
       <td><%= idx + 1 %></td>
       <td><%= link_to Lolteam.find(lol[0]).user.username, "#" %></td>
-      <td><%= lol[1]['total_score']%></td>
+      <td></td>
       <td><%= lol[1]['name1']%></td>
       <td><%= lol[1]['name2']%></td>
       <td><%= lol[1]['name3']%></td>
@@ -30,7 +30,7 @@
     <tr>
       <td></td>
       <td></td>
-      <td></td>
+      <td><%= lol[1]['total_score']%></td>
       <td><%= lol[1]['slot1']%></td>
       <td><%= lol[1]['slot2']%></td>
       <td><%= lol[1]['slot3']%></td>
