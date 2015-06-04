@@ -15,7 +15,8 @@ class BetsController < ApplicationController
 
   def show_noobbet
     @bet = Bet.find(params[:id])
-    @lolteams = @bet.lolteams
+    lolteams = @bet.lolteams
+    @teams = lolteams.map.with_index { |lol| [lol.id,lol.score_user_lolteam] }
   end
 
 end

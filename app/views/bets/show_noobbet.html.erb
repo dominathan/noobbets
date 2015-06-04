@@ -14,19 +14,30 @@
     <th>Summoner 7</th>
   </thead>
   <tbody>
-  <% @lolteams.each_with_index do |lol,idx| %>
-    <% lolscore = lol.score_user_lolteam %>
+  <% @teams.each_with_index do |lol,idx| %>
     <tr>
       <td><%= idx + 1 %></td>
-      <td><%= link_to lol.user.username, "#" %></td>
-      <td><%= lolscore.last.first%></td>
-      <td><%= "#{Summoner.find(lolscore[0][1]).name}: #{lolscore[0][0]}"%></td>
-      <td><%= "#{Summoner.find(lolscore[1][1]).name}: #{lolscore[1][0]}"%></td>
-      <td><%= "#{Summoner.find(lolscore[2][1]).name}: #{lolscore[2][0]}"%></td>
-      <td><%= "#{Summoner.find(lolscore[3][1]).name}: #{lolscore[3][0]}"%></td>
-      <td><%= "#{Summoner.find(lolscore[4][1]).name}: #{lolscore[4][0]}"%></td>
-      <td><%= "#{Summoner.find(lolscore[5][1]).name}: #{lolscore[5][0]}"%></td>
-      <td><%= "#{Summoner.find(lolscore[6][1]).name}: #{lolscore[6][0]}"%></td>
+      <td><%= link_to Lolteam.find(lol[0]).user.username, "#" %></td>
+      <td><%= lol[1]['total_score']%></td>
+      <td><%= lol[1]['name1']%></td>
+      <td><%= lol[1]['name2']%></td>
+      <td><%= lol[1]['name3']%></td>
+      <td><%= lol[1]['name4']%></td>
+      <td><%= lol[1]['name5']%></td>
+      <td><%= lol[1]['name6']%></td>
+      <td><%= lol[1]['name7']%></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><%= lol[1]['slot1']%></td>
+      <td><%= lol[1]['slot2']%></td>
+      <td><%= lol[1]['slot3']%></td>
+      <td><%= lol[1]['slot4']%></td>
+      <td><%= lol[1]['slot5']%></td>
+      <td><%= lol[1]['slot6']%></td>
+      <td><%= lol[1]['slot7']%></td>
     </tr>
   <% end %>
   </tbody>

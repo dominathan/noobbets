@@ -5,18 +5,23 @@ class Lolteam < ActiveRecord::Base
   validates_presence_of :user_id, :bet_id
   validates_presence_of :slot1, :slot2, :slot3, :slot4, :slot5, :slot6, :slot7
 
-  before_save :max_entrants_limit_reached?, :unique_summoners_per_lolteam?
+  before_save :max_entrants_limit_reached?, :unique_summoners_per_lolteam?, :bet_already_started?
 
   # Returns the an array of each indiviudal summoner on a single lolteam with id, ending with total
   # E.G. [[179.62, 1965], [555.11, 2136], [550.29, 2276], [198.58, 2251], [308.65, 2367], [143.35, 3477], [265.99, 4017], [2201.59, nil]]
   def score_user_lolteam
     lolteam = self
     summoner_ids = lolteam.attributes.values.slice(3,7)
-    sum_of_scores_across_summoners = Summoner.where(id: summoner_ids).map do |summoner|
-      summoner.final_score(lolteam.bet.id)
+    scoring_object = {}
+    sum_of_scores_across_summoners = Summoner.where(id: summoner_ids).each_with_index do |summoner,idx|
+      scoring_object["slot#{idx + 1}"] = summoner.final_score(lolteam.bet.id)
+      scoring_object["id#{idx + 1}"] = summoner.id
+      scoring_object["name#{idx + 1}"] = summoner.name
     end
-    total_score = sum_of_scores_across_summoners.reduce(&:+)
-    return sum_of_scores_across_summoners.append(total_score).zip(summoner_ids)
+    scoring_object["total_score"] = Summoner.where(id: summoner_ids)
+                                            .map { |summoner| summoner.final_score(lolteam.bet.id) }
+                                            .reduce(&:+)
+    scoring_object
   end
 
 
