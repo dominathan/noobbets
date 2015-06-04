@@ -1,7 +1,7 @@
 <h1>MY NOOBBETs</h1>
 
 <% @bets.each do |bet| %>
-  <h3>Noobbet Type: <%=bet.bet_type%></h3>
+  <h3>Noobbet: <%= link_to bet.bet_type, my_noobbet_path(bet.id) %></h3>
   <h3>Start: <%=bet.start_time%></h3>
   <h3>End: <%=bet.end_time%></h3>
 

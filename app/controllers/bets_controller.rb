@@ -13,4 +13,9 @@ class BetsController < ApplicationController
     @bets = current_user.bets
   end
 
+  def show_noobbet
+    @bet = Bet.find(params[:id])
+    @lolteams = @bet.lolteams
+  end
+
 end

@@ -1,0 +1,33 @@
+<h1>Rankings</h1>
+
+<table class="table table-hover">
+  <thead>
+    <th>Position</th>
+    <th>Username</th>
+    <th>Total Score</th>
+    <th>Summoner 1</th>
+    <th>Summoenr 2</th>
+    <th>Summoner 3</th>
+    <th>Summoenr 4</th>
+    <th>Summoner 5</th>
+    <th>Summoner 6</th>
+    <th>Summoner 7</th>
+  </thead>
+  <tbody>
+  <% @lolteams.each_with_index do |lol,idx| %>
+    <% lolscore = lol.score_user_lolteam %>
+    <tr>
+      <td><%= idx + 1 %></td>
+      <td><%= link_to lol.user.username, "#" %></td>
+      <td><%= lolscore.last.first%></td>
+      <td><%= "#{Summoner.find(lolscore[0][1]).name}: #{lolscore[0][0]}"%></td>
+      <td><%= "#{Summoner.find(lolscore[1][1]).name}: #{lolscore[1][0]}"%></td>
+      <td><%= "#{Summoner.find(lolscore[2][1]).name}: #{lolscore[2][0]}"%></td>
+      <td><%= "#{Summoner.find(lolscore[3][1]).name}: #{lolscore[3][0]}"%></td>
+      <td><%= "#{Summoner.find(lolscore[4][1]).name}: #{lolscore[4][0]}"%></td>
+      <td><%= "#{Summoner.find(lolscore[5][1]).name}: #{lolscore[5][0]}"%></td>
+      <td><%= "#{Summoner.find(lolscore[6][1]).name}: #{lolscore[6][0]}"%></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
