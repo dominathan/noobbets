@@ -5,7 +5,7 @@ class Lolteam < ActiveRecord::Base
   validates_presence_of :user_id, :bet_id
   validates_presence_of :slot1, :slot2, :slot3, :slot4, :slot5, :slot6, :slot7
 
-  before_save :max_entrants_limit_reached?, :unique_summoners_per_lolteam?, :bet_already_started?
+  before_save :max_entrants_limit_reached?, :unique_summoners_per_lolteam?
 
   # Returns the an array of each indiviudal summoner on a single lolteam with id, ending with total
   # E.G. [[179.62, 1965], [555.11, 2136], [550.29, 2276], [198.58, 2251], [308.65, 2367], [143.35, 3477], [265.99, 4017], [2201.59, nil]]
