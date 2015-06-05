@@ -6,7 +6,7 @@ RSpec.describe Lolteam, type: :model do
   let(:user3) { FactoryGirl.create(:user) }
 
   let(:bet1)  { FactoryGirl.create(:bet) }
-  let(:bet2)  { FactoryGirl.create(:bet) }
+  let(:bet2)  { FactoryGirl.create(:bet, start_time: DateTime.now - 10.years, end_time: DateTime.now + 10.years) }
   let(:bet3)  { FactoryGirl.create(:bet,start_time: DateTime.now - 3.days, end_time: DateTime.now - 2.days) }
   let(:summoner1) { FactoryGirl.create(:summoner) }
   let(:summoner2) { FactoryGirl.create(:summoner) }
@@ -15,6 +15,10 @@ RSpec.describe Lolteam, type: :model do
   let(:summoner5) { FactoryGirl.create(:summoner) }
   let(:summoner6) { FactoryGirl.create(:summoner) }
   let(:summoner7) { FactoryGirl.create(:summoner) }
+  let(:stubbedLlol) { Lolteam.new(slot1: summoner1.id, slot2: summoner2.id, user_id: user1.id, bet_id: bet2.id,
+                                  slot3: summoner3.id, slot4: summoner4.id, slot5: summoner5.id, slot6: summoner6.id,
+                                  slot7: summoner7.id)}
+  let(:games) { JSON.parse(File.open('lib/assets/games.json').read) }
 
   context 'when creating a lolteam' do
     it 'should have user_id and bet_id to save' do
@@ -84,6 +88,26 @@ RSpec.describe Lolteam, type: :model do
                         slot3: summoner3.id, slot4: summoner4.id, slot5: summoner5.id, slot6: summoner6.id,
                         slot7: summoner7.id)
       expect(lol.save).to be(false)
+    end
+  end
+
+  context 'when scoring the entire lolteam' do
+    it 'should return all 7 summoners names, scores, ids, and Total Score' do
+      Game.create_all_games(games,summoner1)
+      Game.create_all_games(games,summoner2)
+      Game.create_all_games(games,summoner3)
+      Game.create_all_games(games,summoner4)
+      Game.create_all_games(games,summoner5)
+      Game.create_all_games(games,summoner6)
+      Game.create_all_games(games,summoner7)
+      score_object = stubbedLlol.score_user_lolteam
+      expect(score_object['name1']).to eq(summoner1.name)
+      expect(score_object['id1']).to eq(summoner1.id)
+      expect(score_object['slot1']).to eq(summoner1.final_score(bet2.id))
+      expect(score_object['name5']).to eq(summoner5.name)
+      expect(score_object['id5']).to eq(summoner5.id)
+      expect(score_object['slot5']).to eq(summoner5.final_score(bet2.id))
+      expect(score_object['total_score'].round(2)).to eq(2541.84)
     end
   end
 
