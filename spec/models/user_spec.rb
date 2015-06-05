@@ -21,5 +21,11 @@ RSpec.describe User, type: :model do
       expect(user1.save).to be_truthy
       expect(user2.save).to be false
     end
+
+    it 'should have 40000 fake_money after creation' do
+      user = User.new(email: email, username: username, password: password)
+      expect(user.save).to be(true)
+      expect(user.fake_money).to be(40000)
+    end
   end
 end

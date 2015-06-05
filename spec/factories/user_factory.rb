@@ -14,5 +14,6 @@ FactoryGirl.define do
     username
     password '12345678'
     password_confirmation '12345678'
+    fake_money            40000
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe Lolteam, type: :model do
 
   let(:bet1)  { FactoryGirl.create(:bet) }
   let(:bet2)  { FactoryGirl.create(:bet, start_time: DateTime.now - 10.years, end_time: DateTime.now + 10.years) }
-  let(:bet3)  { FactoryGirl.create(:bet,start_time: DateTime.now - 3.days, end_time: DateTime.now - 2.days) }
+  let(:bet3)  { FactoryGirl.create(:bet, start_time: DateTime.now - 3.days, end_time: DateTime.now - 2.days) }
   let(:summoner1) { FactoryGirl.create(:summoner) }
   let(:summoner2) { FactoryGirl.create(:summoner) }
   let(:summoner3) { FactoryGirl.create(:summoner) }
@@ -22,7 +22,7 @@ RSpec.describe Lolteam, type: :model do
 
   context 'when creating a lolteam' do
     it 'should have user_id and bet_id to save' do
-      lol = Lolteam.new(slot1: 1, slot2: 2)
+      lol = Lolteam.new(slot1: summoner1.id, slot2: summoner2.id)
       lol.slot3 = summoner3.id
       lol.slot4 = summoner4.id
       lol.slot5 = summoner5.id
@@ -87,6 +87,15 @@ RSpec.describe Lolteam, type: :model do
       lol = Lolteam.new(slot1: summoner1.id, slot2: summoner2.id, user_id: user1.id, bet_id: bet3.id,
                         slot3: summoner3.id, slot4: summoner4.id, slot5: summoner5.id, slot6: summoner6.id,
                         slot7: summoner7.id)
+      expect(lol.save).to be(false)
+    end
+
+    it 'cannot be saved if the current_users fake_money is less than bet.cost' do
+      lol = Lolteam.new(slot1: summoner1.id, slot2: summoner2.id, user_id: user3.id, bet_id: bet1.id,
+                  slot3: summoner3.id, slot4: summoner4.id, slot5: summoner5.id, slot6: summoner6.id,
+                  slot7: summoner7.id)
+      lol.bet.update_attribute(:cost, 200)
+      lol.user.update_attribute(:fake_money, 199)
       expect(lol.save).to be(false)
     end
   end

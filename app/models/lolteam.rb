@@ -5,7 +5,8 @@ class Lolteam < ActiveRecord::Base
   validates_presence_of :user_id, :bet_id
   validates_presence_of :slot1, :slot2, :slot3, :slot4, :slot5, :slot6, :slot7
 
-  before_save :max_entrants_limit_reached?, :unique_summoners_per_lolteam?, :bet_already_started?
+  before_save :max_entrants_limit_reached?, :unique_summoners_per_lolteam?, :bet_already_started?,
+              :user_has_enough_fake_money?
 
   # Returns the an array of each indiviudal summoner on a single lolteam with id, ending with total
   # E.G. [[179.62, 1965], [555.11, 2136], [550.29, 2276], [198.58, 2251], [308.65, 2367], [143.35, 3477], [265.99, 4017], [2201.59, nil]]
@@ -20,7 +21,7 @@ class Lolteam < ActiveRecord::Base
     end
     scoring_object["total_score"] = Summoner.where(id: summoner_ids)
                                             .map { |summoner| summoner.final_score(lolteam.bet.id) }
-                                            .reduce(&:+)
+                                            .reduce(&:+).round(2)
     scoring_object
   end
 
@@ -36,6 +37,10 @@ class Lolteam < ActiveRecord::Base
 
     def bet_already_started?
       self.bet.start_time > DateTime.now
+    end
+
+    def user_has_enough_fake_money?
+      self.user.fake_money >= self.bet.cost
     end
 
 end
