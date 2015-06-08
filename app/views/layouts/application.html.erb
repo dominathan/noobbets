@@ -25,5 +25,8 @@
   <% else %>
     <%= yield %>
   <% end %>
+
+  <!-- This is here for timezone offsets.  See http://joshowens.me/dealing-with-timezones-in-javascript/ -->
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
 </body>
 </html>

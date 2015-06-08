@@ -1,0 +1,21 @@
+{
+  "name": "noobbets",
+  "version": "0.0.0",
+  "authors": [
+    "Nathan Hall <nathan.mh@gmail.com>"
+  ],
+  "description": "lol the world",
+  "license": "MIT",
+  "homepage": "www.nathansmusings.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "~2.4.0"
+  }
+}

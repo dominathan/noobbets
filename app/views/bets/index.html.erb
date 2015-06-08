@@ -6,8 +6,12 @@
         <h4><%="Type: #{bet.bet_type} | Buy-in: #{number_to_currency(bet.cost / 100)}" %></h4>
       </div>
       <div class="panel body">
-        <h4><%= "Start Time: #{bet.start_time.strftime('%b %d | %I:%M:%S %p')}" %><br>
-            <%="End Time: #{bet.end_time.strftime('%b %d | %I:%M:%S %p')}"%>
+        <h4 class="start-time">
+          <%= bet.start_time %>
+        </h4>
+        <h4 class="end-time">
+          <%= bet.end_time %>
+        </h4>
         </h4>
         <h3><%= "#{bet.bet_users.count} of #{bet.entrants}" %></h3>
         <%= link_to "Details", bet_path(bet), class: 'btn btn-lg btn-danger' %>
