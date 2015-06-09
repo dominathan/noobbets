@@ -11,7 +11,9 @@ class Bet < ActiveRecord::Base
   #   Bet.create(entrants: entrants, completed: false, bet_type: bet_type,
   #              cost: cost, start_time: start_time, end_time: end_time)
   # end
-
+  def sort_users_by_highest_total_score
+    self.lolteams.map  { |lol| lol.score_user_lolteam }.sort_by { |k,v| k['total_score'] }.reverse
+  end
 
   private
     def completed_starts_false

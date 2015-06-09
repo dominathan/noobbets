@@ -5,6 +5,7 @@ RSpec.describe Bet, type: :model do
   let(:factory_bet) { FactoryGirl.create(:bet) }
   let(:user) { FactoryGirl.create(:user) }
 
+
   context 'when creating a new bet' do
     it 'should require all attribtues' do
       bet = Bet.new
@@ -50,6 +51,50 @@ RSpec.describe Bet, type: :model do
       Bank.create_and_account(factory_bet, user, factory_bet.cost)
       expect(factory_bet.banks.count).to be(1)
       expect(factory_bet.banks.sum(:amount)).to be(1000)
+    end
+  end
+
+  let(:user1) { FactoryGirl.create(:user) }
+  let(:user2) { FactoryGirl.create(:user) }
+  let(:user3) { FactoryGirl.create(:user) }
+  let(:user4) { FactoryGirl.create(:user) }
+  let(:user5) { FactoryGirl.create(:user) }
+  let(:user6) { FactoryGirl.create(:user) }
+  let(:user7) { FactoryGirl.create(:user) }
+  let(:scoring_bet) { FactoryGirl.create(:bet) }
+  let(:lolteam1) { FactoryGirl.create(:lolteam, user_id: user1.id, bet_id: scoring_bet.id) }
+  let(:lolteam2) { FactoryGirl.create(:lolteam, user_id: user2.id, bet_id: scoring_bet.id) }
+  let(:lolteam3) { FactoryGirl.create(:lolteam, user_id: user3.id, bet_id: scoring_bet.id) }
+  let(:lolteam4) { FactoryGirl.create(:lolteam, user_id: user4.id, bet_id: scoring_bet.id) }
+  let(:lolteam5) { FactoryGirl.create(:lolteam, user_id: user5.id, bet_id: scoring_bet.id) }
+  let(:lolteam6) { FactoryGirl.create(:lolteam, user_id: user6.id, bet_id: scoring_bet.id) }
+  let(:lolteam7) { FactoryGirl.create(:lolteam, user_id: user7.id, bet_id: scoring_bet.id) }
+  let(:game) {FactoryGirl.create(:game, summoner_id: 1) }
+  let(:game) {FactoryGirl.create(:game, summoner_id: 2) }
+  let(:game) {FactoryGirl.create(:game, summoner_id: 3) }
+  let(:game) {FactoryGirl.create(:game, summoner_id: 4) }
+  let(:game) {FactoryGirl.create(:game, summoner_id: 5) }
+  let(:game) {FactoryGirl.create(:game, summoner_id: 6) }
+  let(:game) {FactoryGirl.create(:game, summoner_id: 7) }
+
+  context 'when scoring the bet' do
+    it 'should be able to sort users by their lolteam_score' do
+      lolteam4.should_receive(:score_user_lolteam).and_return( {'total_score' => 4000, 'user_id' => user4.id } )
+      lolteam7.should_receive(:score_user_lolteam).and_return( {'total_score' => 7000, 'user_id' => user7.id } )
+      lolteam6.should_receive(:score_user_lolteam).and_return( {'total_score' => 6000, 'user_id' => user6.id } )
+      lolteam3.should_receive(:score_user_lolteam).and_return( {'total_score' => 3000, 'user_id' => user3.id } )
+      lolteam5.should_receive(:score_user_lolteam).and_return( {'total_score' => 5000, 'user_id' => user5.id } )
+      lolteam1.should_receive(:score_user_lolteam).and_return( {'total_score' => 1000, 'user_id' => user1.id } )
+      lolteam2.should_receive(:score_user_lolteam).and_return( {'total_score' => 2000, 'user_id' => user2.id } )
+      expect(scoring_bet).to respond_to(:sort_users_by_total_score)
+      # debugger
+      expect(scoring_bet.sort_users_by_total_score).to match([{ 'total_score' => 7000, 'user_id' => user7.id },
+                                                              { 'total_score' => 6000, 'user_id' => user6.id },
+                                                              { 'total_score' => 5000, 'user_id' => user5.id },
+                                                              { 'total_score' => 4000, 'user_id' => user4.id },
+                                                              { 'total_score' => 3000, 'user_id' => user3.id },
+                                                              { 'total_score' => 2000, 'user_id' => user2.id },
+                                                              { 'total_score' => 1000, 'user_id' => user1.id }])
     end
   end
 

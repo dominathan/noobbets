@@ -3,12 +3,12 @@ FactoryGirl.define do
     user nil
     bet  nil
     slot1 1
-    slot2 1
-    slot3 1
-    slot4 1
-    slot5 1
-    slot6 1
-    slot7 1
+    slot2 2
+    slot3 3
+    slot4 4
+    slot5 5
+    slot6 6
+    slot7 7
   end
 
 end
