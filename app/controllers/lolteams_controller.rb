@@ -23,9 +23,10 @@
     @lolteam.user_id = current_user.id
 
     respond_to do |format|
-      if @lolteam.save
+      if @lolteam.save && current_user.fake_money >= @bet.cost
         # Add the User to counter for the bets if you join.
         @bet.bet_users.create!(bet_id: @bet.id, user_id: current_user.id)
+        Bank.create_and_accounting(@bet.id, current_user, @bet.cost)
         format.html { redirect_to bets_path, notice: 'Lolteam was successfully created.' }
       else
         format.html { render :new }

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Bet, type: :model do
 
   let(:factory_bet) { FactoryGirl.create(:bet) }
+  let(:user) { FactoryGirl.create(:user) }
 
   context 'when creating a new bet' do
     it 'should require all attribtues' do
@@ -33,5 +34,23 @@ RSpec.describe Bet, type: :model do
     end
   end
 
+  context 'when checking the bet users and bank' do
+    it 'should have users through bet_users' do
+      expect(factory_bet.users).to_not be_nil
+      factory_bet.bet_users.create!(user_id: user.id)
+      expect(factory_bet.users.count).to be(1)
+    end
+
+    it 'should be able to access its bank' do
+      expect(factory_bet.banks).to_not be_nil
+    end
+
+    it 'should have money in the bank if users count > 0' do
+      factory_bet.bet_users.create!(user_id: user.id)
+      Bank.create_and_account(factory_bet, user, factory_bet.cost)
+      expect(factory_bet.banks.count).to be(1)
+      expect(factory_bet.banks.sum(:amount)).to be(1000)
+    end
+  end
 
 end
