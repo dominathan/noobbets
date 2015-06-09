@@ -86,15 +86,29 @@ RSpec.describe Bet, type: :model do
       lolteam5.should_receive(:score_user_lolteam).and_return( {'total_score' => 5000, 'user_id' => user5.id } )
       lolteam1.should_receive(:score_user_lolteam).and_return( {'total_score' => 1000, 'user_id' => user1.id } )
       lolteam2.should_receive(:score_user_lolteam).and_return( {'total_score' => 2000, 'user_id' => user2.id } )
-      expect(scoring_bet).to respond_to(:sort_users_by_total_score)
-      # debugger
-      expect(scoring_bet.sort_users_by_total_score).to match([{ 'total_score' => 7000, 'user_id' => user7.id },
-                                                              { 'total_score' => 6000, 'user_id' => user6.id },
-                                                              { 'total_score' => 5000, 'user_id' => user5.id },
-                                                              { 'total_score' => 4000, 'user_id' => user4.id },
-                                                              { 'total_score' => 3000, 'user_id' => user3.id },
-                                                              { 'total_score' => 2000, 'user_id' => user2.id },
-                                                              { 'total_score' => 1000, 'user_id' => user1.id }])
+      lolteam4.score_user_lolteam
+      lolteam7.score_user_lolteam
+      lolteam6.score_user_lolteam
+      lolteam3.score_user_lolteam
+      lolteam5.score_user_lolteam
+      lolteam1.score_user_lolteam
+      lolteam2.score_user_lolteam
+
+      scoring_bet.lolteams[0].should_receive(:score_user_lolteam).and_return( {'total_score' => 4000, 'user_id' => user4.id } )
+      scoring_bet.lolteams[1].should_receive(:score_user_lolteam).and_return( {'total_score' => 7000, 'user_id' => user7.id } )
+      scoring_bet.lolteams[2].should_receive(:score_user_lolteam).and_return( {'total_score' => 6000, 'user_id' => user6.id } )
+      scoring_bet.lolteams[3].should_receive(:score_user_lolteam).and_return( {'total_score' => 3000, 'user_id' => user3.id } )
+      scoring_bet.lolteams[4].should_receive(:score_user_lolteam).and_return( {'total_score' => 5000, 'user_id' => user5.id } )
+      scoring_bet.lolteams[5].should_receive(:score_user_lolteam).and_return( {'total_score' => 1000, 'user_id' => user1.id } )
+      scoring_bet.lolteams[6].should_receive(:score_user_lolteam).and_return( {'total_score' => 2000, 'user_id' => user2.id } )
+      expect(scoring_bet).to respond_to(:sort_users_by_highest_total_score)
+      expect(scoring_bet.sort_users_by_highest_total_score).to match([{ 'total_score' => 7000, 'user_id' => user7.id },
+                                                                      { 'total_score' => 6000, 'user_id' => user6.id },
+                                                                      { 'total_score' => 5000, 'user_id' => user5.id },
+                                                                      { 'total_score' => 4000, 'user_id' => user4.id },
+                                                                      { 'total_score' => 3000, 'user_id' => user3.id },
+                                                                      { 'total_score' => 2000, 'user_id' => user2.id },
+                                                                      { 'total_score' => 1000, 'user_id' => user1.id }])
     end
   end
 
