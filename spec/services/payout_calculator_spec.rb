@@ -102,7 +102,6 @@ RSpec.describe 'PayoutCalculator' do
                                                             {user_id: user5.id }],
                                                    amount: [30,15],
                                                    noobbet: 5} )
-      expect
     end
   end
 
