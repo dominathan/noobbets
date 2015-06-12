@@ -30,6 +30,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'better_errors'
   gem 'capybara'
+  gem 'database_cleaner'
 end
 
 group :production do
