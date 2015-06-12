@@ -50,6 +50,7 @@ RSpec.describe 'PayoutCalculator' do
       expect(subject.amount_due_to_users + subject.amount_due_to_noobbets).to eq(50)
     end
 
+
     it 'gives 90% of winnings to the top player if bet-type = Winner Take All' do
       #create banks, bets, stub users and scores
       testuser = User.create!(email: 'testtesttest@test.com', username: "testtesttest",
@@ -62,8 +63,46 @@ RSpec.describe 'PayoutCalculator' do
                                                                 { user_id: user1.id }]
                                                               )
       # subject.sorted_users_by_score
-      expect(subject.payout_determiner).to eq(testuser)
-      expect { subject.payout_determiner }.to change{testuser.fake_money}.from(40000).to(40045)
+      expect(subject.payout_determiner).to match( {winner: [{ user_id: testuser.id }],
+                                                   amount: [45],
+                                                   noobbet: 5} )
+      # expect { subject.payout_determiner }.to change{testuser.fake_money}.from(40000).to(40045)
+    end
+
+    it 'gives 60%, 30% and 10% to top 3 players if bet-type = Top 3' do
+      bet1.update_attribute(:bet_type, "Top 3")
+      testuser = User.create!(email: 'testtesttest@test.com', username: "testtesttest",
+                           password: 'password', password_confirmation: 'password',
+                           fake_money: 40000)
+      subject.should_receive(:sorted_users_by_score).and_return( [{ user_id: testuser.id },
+                                                                { user_id: user5.id },
+                                                                { user_id: user3.id },
+                                                                { user_id: user4.id },
+                                                                { user_id: user1.id }]
+                                                              )
+      expect(subject.payout_determiner).to match( {winner: [{user_id: testuser.id},
+                                                            {user_id: user5.id },
+                                                            {user_id: user3.id }],
+                                                   amount: [27,14,5],
+                                                   noobbet: 5} )
+    end
+
+    it 'gives a weighted average to the top half if bet-type = "Top Half"' do
+      bet1.update_attribute(:bet_type, "Top Half")
+      testuser = User.create!(email: 'testtesttest@test.com', username: "testtesttest",
+                           password: 'password', password_confirmation: 'password',
+                           fake_money: 40000)
+      subject.should_receive(:sorted_users_by_score).and_return( [{ user_id: testuser.id },
+                                                                { user_id: user5.id },
+                                                                { user_id: user3.id },
+                                                                { user_id: user4.id },
+                                                                { user_id: user1.id }]
+                                                              )
+      expect(subject.payout_determiner).to match( {winner: [{user_id: testuser.id},
+                                                            {user_id: user5.id }],
+                                                   amount: [30,15],
+                                                   noobbet: 5} )
+      expect
     end
   end
 
