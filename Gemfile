@@ -31,6 +31,8 @@ group :development, :test do
   gem 'better_errors'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'sinatra', require: false
+  gem 'slim'
 end
 
 group :production do

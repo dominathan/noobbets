@@ -65,7 +65,8 @@ RSpec.describe 'PayoutCalculator' do
       # subject.sorted_users_by_score
       expect(subject.payout_determiner).to match( {winner: [{ user_id: testuser.id }],
                                                    amount: [45],
-                                                   noobbet: 5} )
+                                                   noobbet: 5,
+                                                   money_type: "fake_money"} )
       # expect { subject.payout_determiner }.to change{testuser.fake_money}.from(40000).to(40045)
     end
 
@@ -84,7 +85,8 @@ RSpec.describe 'PayoutCalculator' do
                                                             {user_id: user5.id },
                                                             {user_id: user3.id }],
                                                    amount: [27,14,5],
-                                                   noobbet: 5} )
+                                                   noobbet: 5,
+                                                   money_type: "fake_money"} )
     end
 
     it 'gives a weighted average to the top half if bet-type = "Top Half"' do
@@ -101,7 +103,8 @@ RSpec.describe 'PayoutCalculator' do
       expect(subject.payout_determiner).to match( {winner: [{user_id: testuser.id},
                                                             {user_id: user5.id }],
                                                    amount: [30,15],
-                                                   noobbet: 5} )
+                                                   noobbet: 5,
+                                                   money_type: "fake_money"} )
     end
   end
 
