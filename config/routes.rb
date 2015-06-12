@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
 
   root 'homes#index'
@@ -12,5 +13,8 @@ Rails.application.routes.draw do
 
   resources :summoners, only: [:index, :show]
 
+  authenticate :user, lambda { |u| u.email == "nathan.mh@gmail.com" || u.email == "test@test.com" } do
+    mount Sidekiq::Web, at: "/sidekiq"
+  end
 
 end
