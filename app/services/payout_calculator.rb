@@ -39,14 +39,14 @@ class PayoutCalculator
   private
 
     def winner_take_all_fake
-      users = sorted_users_by_score.first['user_id']
+      users = sorted_users_by_score.first[:user_id]
       amount_to_user = amount_due_to_users
       amount_to_noobbet = amount_due_to_noobbets
       { winner: [users], amount: [amount_to_user], noobbet: amount_to_noobbet, money_type: "fake_money" }
     end
 
     def top_three_fake
-      users = sorted_users_by_score[0..2].map { |obj| obj['user_id'] }
+      users = sorted_users_by_score[0..2].map { |obj| obj[:user_id] }
       cached_amount_due_to_users = amount_due_to_users
       amounts = top_three_payout.map { |amt| (cached_amount_due_to_users * amt).round }
       amount_to_noobbet = amount_due_to_noobbets
@@ -54,7 +54,7 @@ class PayoutCalculator
     end
 
     def top_half_fake
-      all_users = sorted_users_by_score.map { |obj| obj['user_id'] }
+      all_users = sorted_users_by_score.map { |obj| obj[:user_id] }
       top_half_of_users = all_users[0..(all_users.length/2 - 1)]
       total_bank = amount_due_to_users
       avg = (1..top_half_of_users.length).reduce(&:+) * 1.0

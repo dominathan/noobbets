@@ -7,10 +7,6 @@ class Bet < ActiveRecord::Base
   validates_presence_of :start_time, :end_time, :cost, :bet_type, :entrants
   before_save :completed_starts_false, :end_time_after_start
 
-  # def self.create_bet(start_time, end_time, cost, bet_type, entrants)
-  #   Bet.create(entrants: entrants, completed: false, bet_type: bet_type,
-  #              cost: cost, start_time: start_time, end_time: end_time)
-  # end
   def sort_users_by_highest_total_score
     self.lolteams.map  { |lol| lol.score_user_lolteam }.sort_by { |k,v| k['total_score'] }.reverse
   end

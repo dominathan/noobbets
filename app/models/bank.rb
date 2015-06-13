@@ -22,8 +22,5 @@ class Bank < ActiveRecord::Base
     def amount_is_equal_to_bet_cost?
       self.amount == self.bet.cost
     end
-
-
-
 end
 

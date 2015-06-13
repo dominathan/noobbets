@@ -63,7 +63,7 @@ RSpec.describe 'PayoutCalculator' do
                                                                 { user_id: user1.id }]
                                                               )
       # subject.sorted_users_by_score
-      expect(subject.payout_determiner).to match( {winner: [{ user_id: testuser.id }],
+      expect(subject.payout_determiner).to match( {winner: [testuser.id],
                                                    amount: [45],
                                                    noobbet: 5,
                                                    money_type: "fake_money"} )
@@ -81,9 +81,9 @@ RSpec.describe 'PayoutCalculator' do
                                                                 { user_id: user4.id },
                                                                 { user_id: user1.id }]
                                                               )
-      expect(subject.payout_determiner).to match( {winner: [{user_id: testuser.id},
-                                                            {user_id: user5.id },
-                                                            {user_id: user3.id }],
+      expect(subject.payout_determiner).to match( {winner: [testuser.id,
+                                                            user5.id,
+                                                            user3.id],
                                                    amount: [27,14,5],
                                                    noobbet: 5,
                                                    money_type: "fake_money"} )
@@ -100,8 +100,7 @@ RSpec.describe 'PayoutCalculator' do
                                                                 { user_id: user4.id },
                                                                 { user_id: user1.id }]
                                                               )
-      expect(subject.payout_determiner).to match( {winner: [{user_id: testuser.id},
-                                                            {user_id: user5.id }],
+      expect(subject.payout_determiner).to match( {winner: [testuser.id,user5.id ],
                                                    amount: [30,15],
                                                    noobbet: 5,
                                                    money_type: "fake_money"} )
