@@ -1,15 +1,33 @@
 class Game < ActiveRecord::Base
   belongs_to :summoner
 
-  validates_presence_of :lol_game_id, :create_date, :summoner_id
+  validates_presence_of :lol_game_id, :create_date, :summoner_id, :total_score
   validates_uniqueness_of :lol_game_id, scope: :summoner_id
+
+  def calculate_total_score
+    score_before_win = scoring_categories_without_win.map.with_index { |category,idx| self[category] * scoring_values[idx] }
+                      .reduce(&:+)
+    if self['win'] == true
+      score_before_win += 3
+    end
+    score_before_win.round(2)
+  end
+
+  def scoring_categories_without_win
+    ['champions_killed','num_deaths','assists','minions_killed','triple_kills',
+      'quadra_kills','penta_kills','first_blood']
+  end
+
+  def scoring_values
+    [2.0,-0.5,1.5,0.01,2.0,5.0,10.0,3]
+  end
 
   def self.create_all_games(games_objects,summoner)
     games_objects['games'].each { |game| Game.create_game(game,summoner) }
   end
 
   def self.create_game(game,summoner)
-    summoner.games.create(lol_game_id: game.fetch("gameId",0),
+    game = summoner.games.create(lol_game_id: game.fetch("gameId",0),
                          num_deaths: game.fetch('stats').fetch('numDeaths',0),
                          champions_killed: game.fetch('stats').fetch('championsKilled',0),
                          win: game.fetch('stats').fetch('win'),
@@ -87,7 +105,10 @@ class Game < ActiveRecord::Base
                          vision_wards_bought: game.fetch('stats').fetch('visionWardsBought',0),
                          ward_killed: game.fetch('stats').fetch("wardKilled",0),
                          ward_placed: game.fetch('stats').fetch("wardPlaced",0),
+                         total_score: 0,
                          summoner_id: Summoner.find(summoner.id).id)
+    game.update_attribute(:total_score, game.calculate_total_score)
+    game
   end
 
 end

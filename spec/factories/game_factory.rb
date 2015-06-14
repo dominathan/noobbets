@@ -11,6 +11,7 @@ FactoryGirl.define do
     first_blood              1
     lol_game_id              1
     create_date              DateTime.now
-
+    total_score              1
+    summoner
   end
 end

@@ -6,7 +6,7 @@ RSpec.describe Game, type: :model do
   let(:stubbed_game1) { games_object['games'].first }
   let(:stubbed_game2) { games_object['games'].last }
   let(:stubbed_game3) { games_object['games'][3] }
-
+  let(:game1) { FactoryGirl.create(:game) }
   let(:summoner1) { FactoryGirl.create(:summoner, id: 1) }
   let(:summoner2) { FactoryGirl.create(:summoner, id: 2) }
 
@@ -16,6 +16,7 @@ RSpec.describe Game, type: :model do
       game = Game.new
       game.create_date = DateTime.now
       game.summoner_id = summoner1.id
+      game.total_score = 100
       expect(game.save).to be(false)
       game.lol_game_id = 1
       expect(game.save).to be_truthy
@@ -26,6 +27,7 @@ RSpec.describe Game, type: :model do
       game.summoner_id = summoner1.id
       game.lol_game_id = 1
       expect(game.save).to be(false)
+      game.total_score = 100
       game.create_date = DateTime.now
       expect(game.save).to be_truthy
     end
@@ -33,10 +35,21 @@ RSpec.describe Game, type: :model do
     it 'should require a valid summoner_id' do
       game = Game.new
       game.lol_game_id = 1
+      game.total_score = 100
       game.create_date = DateTime.now
       expect(game.save).to be(false)
       game.summoner_id = summoner2.id
       expect(game.save).to be_truthy
+    end
+
+    it 'should require a total_score' do
+      game = Game.new
+      game.lol_game_id = 1
+      game.create_date = DateTime.now
+      game.summoner_id = summoner2.id
+      expect(game.save).to be(false)
+      game.total_score = 100
+      expect(game.save).to be(true)
     end
 
     it "should be allowed to have the same lol_game_id for different summoners, \n
@@ -45,22 +58,50 @@ RSpec.describe Game, type: :model do
       game.lol_game_id = 1
       game.create_date = DateTime.now
       game.summoner_id = summoner2.id
+      game.total_score = 100
       expect(game.save).to be(true)
 
       game2 = Game.new
       game2.lol_game_id = 1
       game2.create_date = DateTime.now
       game2.summoner_id = summoner2.id
+      game2.total_score = 100
       expect(game2.save).to be(false)
 
       game3 = Game.new
       game3.lol_game_id = 1
       game3.create_date = DateTime.now
       game3.summoner_id = summoner1.id
+      game3.total_score = 100
       expect(game3.save).to be(true)
     end
   end
 
+  context 'when scoring the game' do
+    it 'should have scoring_categories_without_win' do
+      expect(game1.scoring_categories_without_win).to match(
+        ['champions_killed','num_deaths','assists','minions_killed','triple_kills',
+      'quadra_kills','penta_kills','first_blood']
+      )
+    end
+
+    it 'scoring_categories should be the same as summoner scoring categories without win' do
+      expect(game1.scoring_categories_without_win).to match(summoner1.scoring_categories[0..-2])
+    end
+
+    it 'scoring_values should match summoenr scoring_values' do
+      expect(game1.scoring_values).to eq(summoner1.scoring_values[0..-2])
+    end
+
+    it 'should have scoring values' do
+      expect(game1.scoring_values).to eq([2.0,-0.5,1.5,0.01,2.0,5.0,10.0,3])
+    end
+
+    it 'should calculate a correct score for a game' do
+      game = Game.new(assists: 10, num_deaths: 3, champions_killed: 10, minions_killed: 100, triple_kills: 2, win: false, quadra_kills: 0, penta_kills: 0, first_blood: 0)
+      expect(game.calculate_total_score).to eq(38.5)
+    end
+  end
 
   context 'when creating a game' do
     it 'should be correct from the data given' do
@@ -145,6 +186,7 @@ RSpec.describe Game, type: :model do
       expect(game1.vision_wards_bought).to be(1)
       expect(game1.ward_killed).to be(4)
       expect(game1.ward_placed).to be(18)
+      expect(game1.total_score).to be(18.52)
     end
 
     it 'should also be correct from the data given' do
@@ -229,6 +271,7 @@ RSpec.describe Game, type: :model do
       expect(game2.vision_wards_bought).to be(0)
       expect(game2.ward_killed).to be(1)
       expect(game2.ward_placed).to be(6)
+      expect(game2.total_score).to be(74.01)
     end
 
     it 'should always be right so Im going to make sure with extra tests' do
@@ -268,6 +311,7 @@ RSpec.describe Game, type: :model do
       expect(game3.true_damage_taken).to be(148)
       expect(game3.turrets_killed).to be(2)
       expect(game3.ward_placed).to be(9)
+      expect(game3.total_score).to be(19.62)
     end
 
   end

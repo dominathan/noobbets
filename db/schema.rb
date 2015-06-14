@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609120953) do
+ActiveRecord::Schema.define(version: 20150614012943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20150609120953) do
     t.integer  "vision_wards_bought"
     t.integer  "ward_killed"
     t.integer  "ward_placed"
+    t.float    "total_score"
   end
 
   add_index "games", ["summoner_id"], name: "index_games_on_summoner_id", using: :btree
