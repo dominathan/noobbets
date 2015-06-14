@@ -3,26 +3,71 @@
 
 $(document).ready(function() {
 
-  function timezoneSetter(timeValue) {
-    return moment(timeValue).format("MMMM DD | hh:mm A")
-  }
-
-  var $startTimes = $('.start-time')
-  var $endTimes = $('.end-time')
-
-  $.each($startTimes, function(idx, val) {
-    var newTime = timezoneSetter($(val).html())
-    $(val).html("Start Time: " + newTime)
-  });
-
-  $.each($endTimes,function(idx, val) {
-    var newTime = timezoneSetter($(val).html())
-    $(val).html("End Time: " + newTime)
-  });
+  betsPage.init();
 
 
 });
 
+betsPage = {
+  init: function() {
+    betsPage.initStyling();
+    betsPage.initEvents();
 
-
-
+  },
+  initStyling: function() {
+    betsPage.styleStartTimes();
+    betsPage.styleEndTimes();
+    betsPage.startDataTable();
+  },
+  initEvents: function() {
+    $('body').on('click','.description', function() {
+      betsPage.toggleActiveClass('description-mod')
+    });
+    $('body').on('click','.reward', function() {
+      betsPage.toggleActiveClass('rewards-mod')
+    });
+    $('body').on('click','.entrants', function() {
+      betsPage.toggleActiveClass('competitors-mod')
+    });
+  },
+  timezoneSetter: function(timeValue) {
+    return moment(timeValue).format("MMMM DD | hh:mm A");
+  },
+  styleStartTimes: function() {
+    var $startTimes = $('.start-time');
+    $.each($startTimes, function(idx, val) {
+      var newTime = betsPage.timezoneSetter($(val).html());
+      $(val).html(newTime);
+    });
+  },
+  styleEndTimes: function() {
+    var $endTimes = $('.end-time');
+    $.each($endTimes,function(idx, val) {
+      var newTime = betsPage.timezoneSetter($(val).html());
+      $(val).html(newTime);
+    });
+  },
+  startDataTable: function() {
+    $('#lobby').DataTable({
+      "scrollY": "400px",
+      "scrollCollapse": true,
+      "paging": false,
+      "order": [[5,'asc']],
+      "bInfo" : false
+    });
+  },
+  toggleActiveClass: function(klass) {
+    $('.competitors-mod').removeClass('active');
+    $('.description-mod ').removeClass('active')
+    $('.rewards-mod').removeClass('active');
+    if(klass === 'competitors-mod') {
+      $('.competitors-mod').addClass('active');
+    }
+    if(klass === 'description-mod') {
+      $('.description-mod').addClass('active');
+    }
+    if(klass === 'rewards-mod') {
+      $('.rewards-mod').addClass('active');
+    }
+  }
+}

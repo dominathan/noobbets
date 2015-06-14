@@ -1,7 +1,8 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
 @import "homes";
 @import "bets";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
 
 /* Flash Messages */
 .alert-error {

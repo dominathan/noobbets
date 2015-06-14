@@ -1,21 +1,94 @@
-<br>
-<% @bets.each do |bet| %>
-  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-    <div class="panel panel default bet-panes">
-      <div class="panel heading">
-        <h4><%="Type: #{bet.bet_type} | Buy-in: #{number_to_currency(bet.cost / 100)}" %></h4>
-      </div>
-      <div class="panel body">
-        <h4 class="start-time">
-          <%= bet.start_time %>
-        </h4>
-        <h4 class="end-time">
-          <%= bet.end_time %>
-        </h4>
-        </h4>
-        <h3><%= "#{bet.bet_users.count} of #{bet.entrants}" %></h3>
-        <%= link_to "Details", bet_path(bet), class: 'btn btn-lg btn-danger' %>
+<h1 style="visibility: hidden">Hide Me</h1>
+<table id="lobby" class='table table-hover table-striped' width="100%">
+  <thead>
+    <th>Contest</th>
+    <th>Entrants</th>
+    <th>Max</th>
+    <th>Entry Fee</th>
+    <th>Reward</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @bets.each_with_index do |bet,index| %>
+      <tr>
+        <td class=''>
+          <a href="" class='description' data-toggle="modal" data-target='#betInfo<%=index%>'><%=bet.bet_type %></a>
+        </td>
+        <td class=''>
+          <a href="" class='entrants'data-toggle="modal" data-target='#betInfo<%=index%>'><%= bet.users.count %></a>
+        </td>
+        <td><%= bet.entrants %></td>
+        <td><%= bet.cost %></td>
+        <td class=''>
+          <a href="" class='reward' data-toggle="modal" data-target='#betInfo<%=index%>'><%= bet.cost * bet.users.count %> BOONS</a>
+        </td>
+        <td class="start-time"><%= bet.start_time %></td>
+        <td class="end-time"><%= bet.end_time %></td>
+        <td class="btn btn-success btn-xs bets-join"><%= link_to "Join Now", bet_path(bet) %></td>
+      </tr>
+
+
+      <!-- Need a Modal for Each Bet / Probably a better way but this is a starting point. -->
+      <div class="modal fade" id='betInfo<%=index%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><%= bet.bet_type%> | Reward <%= bet.cost * bet.users.count%> | Start Time <%= bet.start_time %> (<%= bet.cost %>)</h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="tabbable">
+              <ul class='nav nav-tabs'>
+                <li class='description-mod'><a href='#details<%=index%>' data-toggle='tab'>Details</a></li>
+                <li class='competitors-mod'><a href="#competitors<%=index%>" data-toggle='tab'>Competitors</a></li>
+                <li class='rewards-mod'><a href="#rewards<%=index%>" data-toggle='tab'>Rewards</a></li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane description-mod' id='details<%=index%>'>
+                   <p>Pick 7 of your Favorite Summoners to compete in this contest. <br>You must select 7 different summoners. <br> The bet will run from <span class='start-time'><%= bet.start_time %></span> to <span class='end-time'><%=bet.end_time%>.</span><br><br>Scoring</p>
+                   <ul class=''>
+                     <li>Champions Killed: 2 points</li>
+                     <li>Death: -0.5 points</li>
+                     <li>Assists: 1.5 points</li>
+                     <li>Minions Killed: 0.01 points</li>
+                     <li>Win: 3 points</li>
+                     <li>First Blood: 3 points</li>
+                     <li>Triple Kill: 2 points</li>
+                     <li>Quadra Kill: 5 points</li>
+                     <li>Penta Kill: 10 points</li>
+                   </ul>
+                </div><!--  END DETAILS -->
+                <div class='tab-pane competitors-mod' id='competitors<%=index%>'>
+                  <p>Competitors</p><br>
+                  <ul class='list-style-none'>
+                    <% bet.users.each_with_index do |user,index| %>
+                      <li><%="#{index+1}. #{user.username}"%></li>
+                    <% end %>
+                  </ul>
+                </div><!-- END COMPETITORS -->
+                <div class='tab-pane rewards-mod' id='rewards<%=index%>'>
+                  <p>Reward</p><br>
+                  <p><%= bet.cost * bet.users.count %></p>
+                </div> <!-- END REWARD -->
+              </div> <!-- END TABS -->
+            </div> <!-- END TABABLE -->
+            </div> <!-- END MODAL BODY -->
+
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
+            <%= link_to "Join Noobbet", bet_path(bet), class: 'btn btn-success btn-lg'%>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+    <!-- End Modal -->
+    <% end %>
+  </tbody>
+</table>
+
+

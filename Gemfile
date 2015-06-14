@@ -15,6 +15,7 @@ gem 'devise'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
+gem 'jquery-datatables-rails', '~> 3.3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

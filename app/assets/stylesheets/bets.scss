@@ -2,80 +2,100 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$bgDefault      : #d45c3b;
-$bgHighlight    : #dd876f;
-$colDefault     : #ecf0f1;
-$colHighlight   : #ecdbff;
-$dropDown       : false;
 
-.panel {
-  text-align: center;
-  .heading {
-    background-color: $bgDefault;
-    border-radius: 2px;
-    color: white;
+.bets-join {
+  a {
+    color: #FFF;
+    font-weight: 800;
+    &:hover {
+
+    }
   }
 }
 
-.bet-panes {
-  border: 2px solid $bgHighlight;
+.list-style-none {
+  list-style-type: none;
 }
 
-.navbar-default {
-  background-color: $bgDefault;
-  border-color: $bgHighlight;
-  .navbar-brand {
-    color: $colDefault;
-    &:hover, &:focus {
-      color: $colHighlight; }}
-  .navbar-text {
-    color: $colDefault; }
-  .navbar-nav {
-    > li {
-      > a {
-        color: $colDefault;
-        &:hover,  &:focus {
-          color: $colHighlight; }}
-      @if $dropDown {
-        > .dropdown-menu {
-          background-color: $bgDefault;
-          > li > a {
-            color: $colDefault;
-            &:hover,  &:focus {
-              color: $colHighlight;
-              background-color: $bgHighlight; }}
-          .divider {
-            background-color: $bgHighlight;}}}
-    }
-    > .active {
-      > a, > a:hover, > a:focus {
-        color: $colHighlight;
-        background-color: $bgHighlight; }}
-    > .open {
-      > a, > a:hover, > a:focus {
-        color: $colHighlight;
-        background-color: $bgHighlight; }}}
-  .navbar-toggle {
-    border-color: $bgHighlight;
-    &:hover, &:focus {
-      background-color: $bgHighlight; }
-    .icon-bar {
-      background-color: $colDefault; }}
-  .navbar-collapse,
-  .navbar-form {
-    border-color: $colDefault; }
-  .navbar-link {
-    color: $colDefault;
-    &:hover {
-      color: $colHighlight; }}}
-@media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu {
-    > li > a {
-      color: $colDefault;
-      &:hover, &:focus {
-        color: $colHighlight; }}
-    > .active {
-      > a, > a:hover, > a:focus {
-        color: $colHighlight;
-        background-color: $bgHighlight; }}}
-}
+// ---------* ALL BELOW INFORMATION IS OVERWRITTEN BECAUSE OF PLACEMENT //
+
+// $bgBetsDefault      : #d45c3b;
+// $bgBetsHighlight    : #dd876f;
+// $colBetsDefault     : #ecf0f1;
+// $colBetsHighlight   : #ecdbff;
+// $betsDropdown       : false;
+
+// // .panel {
+// //   text-align: center;
+// //   .heading {
+// //     background-color: $bgBetsDefault;
+// //     border-radius: 2px;
+// //     color: white;
+// //   }
+// // }
+
+// // .bet-panes {
+// //   border: 2px solid $bgBetsHighlight;
+// // }
+
+// .navbar-default {
+//   background-color: $bgBetsDefault;
+//   border-color: $bgBetsHighlight;
+//   .navbar-brand {
+//     color: $colBetsDefault;
+//     &:hover, &:focus {
+//       color: $colBetsHighlight; }}
+//   .navbar-text {
+//     color: $colBetsDefault; }
+//   .navbar-nav {
+//     > li {
+//       > a {
+//         color: $colBetsDefault;
+//         &:hover,  &:focus {
+//           color: $colBetsHighlight; }}
+//       @if $betsDropdown {
+//         > .betsDropdown-menu {
+//           background-color: $bgBetsDefault;
+//           > li > a {
+//             color: $colBetsDefault;
+//             &:hover,  &:focus {
+//               color: $colBetsHighlight;
+//               background-color: $bgBetsHighlight; }}
+//           .divider {
+//             background-color: $bgBetsHighlight;}}}
+//     }
+//     > .active {
+//       > a, > a:hover, > a:focus {
+//         color: $colBetsHighlight;
+//         background-color: $bgBetsHighlight; }}
+//     > .open {
+//       > a, > a:hover, > a:focus {
+//         color: $colBetsHighlight;
+//         background-color: $bgBetsHighlight; }}}
+//   .navbar-toggle {
+//     border-color: $bgBetsHighlight;
+//     &:hover, &:focus {
+//       background-color: $bgBetsHighlight; }
+//     .icon-bar {
+//       background-color: $colBetsDefault; }}
+//   .navbar-collapse,
+//   .navbar-form {
+//     border-color: $colBetsDefault; }
+//   .navbar-link {
+//     color: $colBetsDefault;
+//     &:hover {
+//       color: $colBetsHighlight; }}}
+// @media (max-width: 767px) {
+//   .navbar-default .navbar-nav .open .betsDropdown-menu {
+//     > li > a {
+//       color: $colBetsDefault;
+//       &:hover, &:focus {
+//         color: $colBetsHighlight; }}
+//     > .active {
+//       > a, > a:hover, > a:focus {
+//         color: $colBetsHighlight;
+//         background-color: $bgBetsHighlight; }}}
+// }
+
+
+
