@@ -3,7 +3,6 @@ require 'json'
 require 'nokogiri'
 
 class GetTopSummoners
-  attr_reader
 
   def self.get_from_lolking(number_of_pages)
     players = []

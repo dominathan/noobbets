@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/Fate%20Twisted?api_key=729364d3-681b-437a-b225-5de137d7b372
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, PUT
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sun, 14 Jun 2015 00:30:55 GMT
+      Server:
+      - Jetty(9.1.1.v20140108)
+      Vary:
+      - Accept-Encoding, User-Agent
+      X-Newrelic-App-Data:
+      - PxQFWFFSDwQTVVdUBAgAVkYdFGQHBDcQUQxLA1tMXV1dORYzVBBGBxdCdhUSEVFRRRAEPhhQRw84HlpcDjpMDFE+FxQJFgBuHE9lTlMYHgwFW1I9SUkaHwBKUU4HHwdWVgcDAltTW04dUxRADgkDVlJQXFNVAARQVVRSVUQ+
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: '{"fatetwisted":{"id":65550074,"name":"Fate Twisted","profileIconId":666,"summonerLevel":30,"revisionDate":1434234241000}}'
+    http_version: 
+  recorded_at: Sun, 14 Jun 2015 00:30:56 GMT
+recorded_with: VCR 2.9.3

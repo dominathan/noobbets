@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+WebMock.allow_net_connect!
 GetRiotAPI.get_summoner_ids(GetTopSummoners.get_from_lolking(1))
 GetRiotAPI.get_recent_summoner_games
 

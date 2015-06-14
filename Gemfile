@@ -33,7 +33,8 @@ group :development, :test do
   gem 'better_errors'
   gem 'capybara'
   gem 'database_cleaner'
-
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do
