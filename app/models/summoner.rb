@@ -15,8 +15,7 @@ class Summoner < ActiveRecord::Base
   # 3 points for win
 
   def final_score(bet_id)
-    array_of_scored_attributes(bet_id).map.with_index { |elm,idx| elm * scoring_values[idx] }
-                                      .reduce(&:+).round(2)
+    score_summoner_games_over_bet_timeframe(bet_id,'total_score')
   end
 
   def array_of_scored_attributes(bet_id)
@@ -42,13 +41,12 @@ class Summoner < ActiveRecord::Base
     else
       games.where("create_date >= :start_time AND create_date <= :end_time",
                    {start_time: bet.start_time, end_time: bet.end_time})
-           .sum(desired_attribute).round(2)
+           .sum(desired_attribute)
     end
   end
 
   def final_score_over_user_timeframe(starting,ending)
-    array_of_score_attribute_over_timeframe(starting,ending).map.with_index { |elm,idx| elm *scoring_values[idx] }
-                                                            .reduce(&:+).round(2)
+    score_summoner_games_over_user_timeframe('total_score',starting,ending)
   end
 
   def array_of_score_attribute_over_timeframe(starting,ending)
@@ -64,7 +62,7 @@ class Summoner < ActiveRecord::Base
     else
       games.where("create_date >= :start_time AND create_date <= :end_time",
                    {start_time: starting, end_time: ending})
-           .sum(desired_attribute).round(2)
+           .sum(desired_attribute)
     end
   end
 

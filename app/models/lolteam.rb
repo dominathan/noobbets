@@ -19,9 +19,7 @@ class Lolteam < ActiveRecord::Base
       scoring_object["id#{idx + 1}"] = summoner.id
       scoring_object["name#{idx + 1}"] = summoner.name
     end
-    scoring_object["total_score"] = Summoner.where(id: summoner_ids)
-                                            .map { |summoner| summoner.final_score(lolteam.bet.id) }
-                                            .reduce(&:+).round(2)
+    scoring_object['total_score'] = scoring_object['slot1'] + scoring_object['slot2'] + scoring_object['slot3'] + scoring_object['slot4'] + scoring_object['slot5'] + scoring_object['slot6'] + scoring_object['slot7']
     scoring_object[:user_id] = self.user.id
     scoring_object
   end

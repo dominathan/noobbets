@@ -16,7 +16,7 @@
   </thead>
   <tbody>
     <tr>
-      <td><%= (DateTime.now - 1.days).strftime("%d %b")%></td>
+      <td> 24 Hours</td>
       <td><%= @summoner.final_score_over_user_timeframe(DateTime.now - 1.days,DateTime.now) %></td>
       <td><%= @summoner.score_summoner_games_over_user_timeframe('champions_killed',DateTime.now - 1.days,DateTime.now) %></td>
       <td><%= @summoner.score_summoner_games_over_user_timeframe('num_deaths',DateTime.now - 1.days,DateTime.now) %></td>
@@ -28,7 +28,7 @@
       <td><%= @summoner.score_summoner_games_over_user_timeframe('win',DateTime.now - 1.days,DateTime.now) %></td>
     </tr>
     <tr>
-      <td><%= (DateTime.now - 3.days).strftime("%d %b")%></td>
+      <td>72 Hours </td>
       <td><%= @summoner.final_score_over_user_timeframe(DateTime.now - 3.days,DateTime.now) %></td>
       <td><%= @summoner.score_summoner_games_over_user_timeframe('champions_killed',DateTime.now - 3.days,DateTime.now) %></td>
       <td><%= @summoner.score_summoner_games_over_user_timeframe('num_deaths',DateTime.now - 3.days,DateTime.now) %></td>
@@ -40,7 +40,7 @@
       <td><%= @summoner.score_summoner_games_over_user_timeframe('win',DateTime.now - 3.days,DateTime.now) %></td>
     </tr>
     <tr>
-      <td><%= (DateTime.now - 7.days).strftime("%d %b")%></td>
+      <td> Past Week</td>
       <td><%= @summoner.final_score_over_user_timeframe(DateTime.now - 7.days,DateTime.now) %></td>
       <td><%= @summoner.score_summoner_games_over_user_timeframe('champions_killed',DateTime.now - 7.days,DateTime.now) %></td>
       <td><%= @summoner.score_summoner_games_over_user_timeframe('num_deaths',DateTime.now - 7.days,DateTime.now) %></td>
@@ -52,7 +52,7 @@
       <td><%= @summoner.score_summoner_games_over_user_timeframe('win',DateTime.now - 7.days,DateTime.now) %></td>
     </tr>
     <tr>
-    <td><%= (DateTime.now - 1.month).strftime("%d %b")%></td>
+    <td>Past Month</td>
       <td><%= @summoner.final_score_over_user_timeframe(DateTime.now - 1.month,DateTime.now) %></td>
       <td><%= @summoner.score_summoner_games_over_user_timeframe('champions_killed',DateTime.now - 1.month,DateTime.now) %></td>
       <td><%= @summoner.score_summoner_games_over_user_timeframe('num_deaths',DateTime.now - 1.month,DateTime.now) %></td>
