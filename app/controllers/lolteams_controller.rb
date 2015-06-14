@@ -12,7 +12,7 @@
 
   def new
     @lolteam = Lolteam.new
-    @summoners = Summoner.all.order(:total_score).pluck(:name, :id)
+    @summoners = Summoner.all.order(:name).pluck(:name, :id)
   end
 
   def edit
