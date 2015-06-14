@@ -14,6 +14,14 @@ class Summoner < ActiveRecord::Base
   # 3 points for first blood
   # 3 points for win
 
+  def remove_lol_game_id_duplicates
+    grouped_by_lolgame = games.group_by { |val| val.lol_game_id }
+    grouped_by_lolgame.values.each do |duplicates|
+      keeper = duplicates.shift
+      duplicates.each { |remove_me| remove_me.destroy }
+    end
+  end
+
   def final_score(bet_id)
     score_summoner_games_over_bet_timeframe(bet_id,'total_score')
   end

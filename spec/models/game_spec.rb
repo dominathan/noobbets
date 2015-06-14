@@ -105,8 +105,8 @@ RSpec.describe Game, type: :model do
 
   context 'when creating a game' do
     it 'should be correct from the data given' do
-      game1 = Game.create_game(stubbed_game1,summoner1)
-
+      Game.create_game(stubbed_game1,summoner1)
+      game1 = Game.last
       expect(game1.num_deaths).to be(10)
       expect(game1.champions_killed).to be(7)
       expect(game1.win).to be(false)
@@ -190,7 +190,8 @@ RSpec.describe Game, type: :model do
     end
 
     it 'should also be correct from the data given' do
-      game2 = Game.create_game(stubbed_game2,summoner2)
+      Game.create_game(stubbed_game2,summoner2)
+      game2 = Game.last
 
       expect(game2.num_deaths).to be(12)
       expect(game2.champions_killed).to be(31)
@@ -275,7 +276,8 @@ RSpec.describe Game, type: :model do
     end
 
     it 'should always be right so Im going to make sure with extra tests' do
-      game3 = Game.create_game(stubbed_game3,summoner2)
+      Game.create_game(stubbed_game3,summoner2)
+      game3 = Game.last
 
       expect(game3.num_deaths).to be(0)
       expect(game3.champions_killed).to be(3)

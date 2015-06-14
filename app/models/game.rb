@@ -27,7 +27,7 @@ class Game < ActiveRecord::Base
   end
 
   def self.create_game(game,summoner)
-    game = summoner.games.create(lol_game_id: game.fetch("gameId",0),
+    summoner.games.create(lol_game_id: game.fetch("gameId",0),
                          num_deaths: game.fetch('stats').fetch('numDeaths',0),
                          champions_killed: game.fetch('stats').fetch('championsKilled',0),
                          win: game.fetch('stats').fetch('win'),
@@ -107,8 +107,7 @@ class Game < ActiveRecord::Base
                          ward_placed: game.fetch('stats').fetch("wardPlaced",0),
                          total_score: 0,
                          summoner_id: Summoner.find(summoner.id).id)
-    game.update_attribute(:total_score, game.calculate_total_score)
-    game
+    Game.last.update_attribute(:total_score, Game.last.calculate_total_score)
   end
 
 end
