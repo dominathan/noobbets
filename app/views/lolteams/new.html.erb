@@ -1,5 +1,61 @@
-<h1>New Lolteam</h1>
+<h1 style="visibility: hidden">Don't show me</h1>
+<div class="col-sm-6">
+  <h1>New Lolteam</h1>
+  <%= render 'form' %>
+</div>
+<div class="col-sm-6">
+  <table class='table table-stripe' id='lolTeamCreateTable'>
+    <thead>
+      <th>Total Score</th>
+      <th>Champions Killed</th>
+      <th>Deaths</th>
+      <th>Assists</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="slot1-total-score"></td>
+        <td id="slot1-champions-killed"></td>
+        <td id="slot1-deaths"></td>
+        <td id="slot1-assists"></td>
+      </tr>
+      <tr>
+        <td id="slot2-total-score"></td>
+        <td id="slot2-champions-killed"></td>
+        <td id="slot2-deaths"></td>
+        <td id="slot2-assists"></td>
+      </tr>
+      <tr>
+        <td id="slot3-total-score"></td>
+        <td id="slot3-champions-killed"></td>
+        <td id="slot3-deaths"></td>
+        <td id="slot3-assists"></td>
+      </tr>
+      <tr>
+        <td id="slot4-total-score"></td>
+        <td id="slot4-champions-killed"></td>
+        <td id="slot4-deaths"></td>
+        <td id="slot4-assists"></td>
+      </tr>
+      <tr>
+        <td id="slot5-total-score"></td>
+        <td id="slot5-champions-killed"></td>
+        <td id="slot5-deaths"></td>
+        <td id="slot5-assists"></td>
+      </tr>
+      <tr>
+        <td id="slot6-total-score"></td>
+        <td id="slot6-champions-killed"></td>
+        <td id="slot6-deaths"></td>
+        <td id="slot6-assists"></td>
+      </tr>
+      <tr>
+        <td id="slot7-total-score"></td>
+        <td id="slot7-champions-killed"></td>
+        <td id="slot7-deaths"></td>
+        <td id="slot7-assists"></td>
+      </tr>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', bets_path %>
+    </tbody>
+  </table>
+  <p>Note: Statistics are summoners performance over the last 7 days.</p>
+</div>

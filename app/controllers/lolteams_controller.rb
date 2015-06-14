@@ -12,6 +12,7 @@
 
   def new
     @lolteam = Lolteam.new
+    @summoners = Summoner.all.order(:name).pluck(:name, :id)
   end
 
   def edit

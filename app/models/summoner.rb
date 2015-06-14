@@ -23,7 +23,7 @@ class Summoner < ActiveRecord::Base
   end
 
   def final_score(bet_id)
-    score_summoner_games_over_bet_timeframe(bet_id,'total_score')
+    score_summoner_games_over_bet_timeframe(bet_id,'total_score').round(2)
   end
 
   def array_of_scored_attributes(bet_id)
@@ -49,12 +49,12 @@ class Summoner < ActiveRecord::Base
     else
       games.where("create_date >= :start_time AND create_date <= :end_time",
                    {start_time: bet.start_time, end_time: bet.end_time})
-           .sum(desired_attribute)
+           .sum(desired_attribute).round(2)
     end
   end
 
   def final_score_over_user_timeframe(starting,ending)
-    score_summoner_games_over_user_timeframe('total_score',starting,ending)
+    score_summoner_games_over_user_timeframe('total_score',starting,ending).round(2)
   end
 
   def array_of_score_attribute_over_timeframe(starting,ending)
@@ -70,7 +70,7 @@ class Summoner < ActiveRecord::Base
     else
       games.where("create_date >= :start_time AND create_date <= :end_time",
                    {start_time: starting, end_time: ending})
-           .sum(desired_attribute)
+           .sum(desired_attribute).round(2)
     end
   end
 

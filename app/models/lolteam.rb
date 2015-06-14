@@ -15,7 +15,7 @@ class Lolteam < ActiveRecord::Base
     summoner_ids = lolteam.attributes.values.slice(3,7)
     scoring_object = {}
     sum_of_scores_across_summoners = Summoner.where(id: summoner_ids).each_with_index do |summoner,idx|
-      scoring_object["slot#{idx + 1}"] = summoner.final_score(lolteam.bet.id)
+      scoring_object["slot#{idx + 1}"] = summoner.final_score(lolteam.bet.id).round(2)
       scoring_object["id#{idx + 1}"] = summoner.id
       scoring_object["name#{idx + 1}"] = summoner.name
     end

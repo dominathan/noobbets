@@ -1,35 +1,60 @@
 <%= form_for(@lolteam, url: { controller: 'lolteams', action: 'create' }) do |f| %>
+  <div class="form-horizontal">
+    <div class="form-group">
+      <%= f.label :slot1, "Slot 1", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-8">
+        <%= f.select :slot1, @summoners, {include_blank: "Please Select"}, class: "form-control" %>
+      </div>
+    </div>
 
+    <div class="form-group">
+      <%= f.label :slot2, "Slot 2", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-8">
+        <%= f.select :slot2, @summoners, {include_blank: "Please Select"}, class: "form-control" %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :slot1 %><br>
-    <%= f.select :slot1, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
-  </div>
-  <div class="field">
-    <%= f.label :slot2 %><br>
-    <%= f.select :slot2, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
-  </div>
-  <div class="field">
-    <%= f.label :slot3 %><br>
-    <%= f.select :slot3, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
-  </div>
-  <div class="field">
-    <%= f.label :slot4 %><br>
-    <%= f.select :slot4, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
-  </div>
-  <div class="field">
-    <%= f.label :slot5 %><br>
-    <%= f.select :slot5, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
-  </div>
-  <div class="field">
-    <%= f.label :slot6 %><br>
-    <%= f.select :slot6, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
-  </div>
-  <div class="field">
-    <%= f.label :slot7 %><br>
-    <%= f.select :slot7, Summoner.all.collect { |summoner| [summoner.name, summoner.id]} %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="form-group">
+      <%= f.label :slot3, "Slot 3", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-8">
+        <%= f.select :slot3, @summoners, {include_blank: "Please Select"}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :slot4, "Slot 4", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-8">
+        <%= f.select :slot4, @summoners, {include_blank: "Please Select"}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :slot5, "Slot 5", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-8">
+        <%= f.select :slot5, @summoners, {include_blank: "Please Select"}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :slot6, "Slot 6", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-8">
+        <%= f.select :slot6, @summoners, {include_blank: "Please Select"}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :slot7, "Slot 7", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-8">
+        <%= f.select :slot7, @summoners, {include_blank: "Please Select"}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="actions col-sm-2 col-sm-offset-1">
+      <%= f.submit "Join Noobbet", class: "btn btn-success btn-lg" %>
+    </div>
+  </div> <!-- FORM-HORIZONTAL -->
 <% end %>
+
+<div class='col-md-6'>
+
+</div>

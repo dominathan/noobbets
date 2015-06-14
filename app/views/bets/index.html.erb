@@ -26,7 +26,7 @@
         </td>
         <td class="start-time"><%= bet.start_time %></td>
         <td class="end-time"><%= bet.end_time %></td>
-        <td class="btn btn-success btn-xs bets-join"><%= link_to "Join Now", bet_path(bet) %></td>
+        <td class="btn btn-success btn-xs bets-join"><%= link_to "Join Now", new_bet_lolteam_path(bet) %></td>
       </tr>
 
 
@@ -81,7 +81,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
-            <%= link_to "Join Noobbet", bet_path(bet), class: 'btn btn-success btn-lg'%>
+            <%= link_to "Join Noobbet", new_bet_lolteam_path(bet), class: 'btn btn-success btn-lg'%>
           </div>
         </div>
       </div>

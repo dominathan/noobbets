@@ -8,9 +8,10 @@ Rails.application.routes.draw do
   get '/my_noobbets', to: "bets#my_noobbets"
   get '/my_noobbet/:id', to: "bets#show_noobbet", as: "my_noobbet"
   resources :bets do
-    resources :lolteams
+    resources :lolteams, only: [:new, :create, :index]
   end
 
+  get '/summoners/:id/score', to: "summoners#score", as: "score_summoner"
   resources :summoners, only: [:index, :show]
 
   authenticate :user, lambda { |u| u.email == "nathan.mh@gmail.com" || u.email == "test@test.com" } do
