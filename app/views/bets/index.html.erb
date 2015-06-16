@@ -21,7 +21,7 @@
         <td><%= bet.entrants %></td>
         <td><%= bet.cost %></td>
         <td class=''>
-          <a href="" class='reward' data-toggle="modal" data-target='#betInfo<%=index%>'><%= bet.cost * bet.users.count %> BOONS</a>
+          <a href="" class='reward' data-toggle="modal" data-target='#betInfo<%=index%>'><%= ((bet.cost * bet.users.count)  * ( 1 - PayoutCalculator.new(bet).noobbet_rake_percentage )).round %> BOONS</a>
         </td>
         <td class="start-time"><%= bet.start_time %></td>
         <td class="end-time"><%= bet.end_time %></td>

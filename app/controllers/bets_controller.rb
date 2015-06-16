@@ -10,7 +10,7 @@ class BetsController < ApplicationController
   end
 
   def my_noobbets
-    @bets = current_user.bets
+    @bets = current_user.bets.order(:start_time)
   end
 
   def show_noobbet
