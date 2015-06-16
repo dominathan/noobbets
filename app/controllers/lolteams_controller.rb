@@ -12,7 +12,9 @@
 
   def new
     @lolteam = Lolteam.new
-    @summoners = Summoner.all.order(:name).pluck(:name, :id)
+    @summoners = Summoner.all.sort_by { |summoner| summoner.final_score_over_user_timeframe(DateTime.now - 7.days,DateTime.now) }
+                             .reverse
+                             .map { |summoner| [summoner.name, summoner.id] }
   end
 
   def edit
