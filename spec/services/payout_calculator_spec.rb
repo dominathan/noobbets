@@ -23,13 +23,13 @@ RSpec.describe 'PayoutCalculator' do
     end
   end
 
-  let(:user1) { FactoryGirl.create(:user) }
+  let(:user1) { FactoryGirl.create(:user, email: 'testtesttest@test.com', username: "testtesttest",password: 'password', password_confirmation: 'password',fake_money: 40000) }
   let(:user2) { FactoryGirl.create(:user) }
   let(:user3) { FactoryGirl.create(:user) }
   let(:user4) { FactoryGirl.create(:user) }
   let(:user5) { FactoryGirl.create(:user) }
 
-  context 'when determing a winner and performing a payout' do
+  context 'when determing a winner' do
     before :each do
       bank1 = Bank.create!(bet_id: bet1.id, user_id: user1.id, amount: 10)
       bank2 = Bank.create!(bet_id: bet1.id, user_id: user2.id, amount: 10)
@@ -38,7 +38,6 @@ RSpec.describe 'PayoutCalculator' do
       bank5 = Bank.create!(bet_id: bet1.id, user_id: user5.id, amount: 10)
     end
     it 'amount_due_to_users should equal the bet.banks sum - bet.banks sum * noobbet_rake_percentage' do
-
       expect(subject.amount_due_to_users).to eq(45)
     end
 
@@ -49,61 +48,51 @@ RSpec.describe 'PayoutCalculator' do
     it 'amount to noobbets + amounts to users == bet.banks.sum(:amount)' do
       expect(subject.amount_due_to_users + subject.amount_due_to_noobbets).to eq(50)
     end
+  end
 
+  context 'when performing a payout' do
+
+    before :each do
+      bank1 = Bank.create!(bet_id: bet1.id, user_id: user1.id, amount: 10)
+      bank2 = Bank.create!(bet_id: bet1.id, user_id: user2.id, amount: 10)
+      bank3 = Bank.create!(bet_id: bet1.id, user_id: user3.id, amount: 10)
+      bank4 = Bank.create!(bet_id: bet1.id, user_id: user4.id, amount: 10)
+      bank5 = Bank.create!(bet_id: bet1.id, user_id: user5.id, amount: 10)
+      subject.should_receive(:sorted_users_by_score).and_return( [{ user_id: user1.id, lolteam_id: 1},
+                                                                { user_id: user5.id, lolteam_id: 5 },
+                                                                { user_id: user3.id, lolteam_id: 3 },
+                                                                { user_id: user4.id, lolteam_id: 4 },
+                                                                { user_id: user2.id, lolteam_id: 2 }]
+                                                              )
+    end
 
     it 'gives 90% of winnings to the top player if bet-type = Winner Take All' do
-      #create banks, bets, stub users and scores
-      testuser = User.create!(email: 'testtesttest@test.com', username: "testtesttest",
-                           password: 'password', password_confirmation: 'password',
-                           fake_money: 40000)
-      subject.should_receive(:sorted_users_by_score).and_return( [{ user_id: testuser.id },
-                                                                { user_id: user5.id },
-                                                                { user_id: user3.id },
-                                                                { user_id: user4.id },
-                                                                { user_id: user1.id }]
-                                                              )
-      # subject.sorted_users_by_score
-      expect(subject.payout_determiner).to match( {winner: [testuser.id],
+      expect(subject.payout_determiner).to match({winner: [user1.id],
                                                    amount: [45],
                                                    noobbet: 5,
-                                                   money_type: "fake_money"} )
-      # expect { subject.payout_determiner }.to change{testuser.fake_money}.from(40000).to(40045)
+                                                   money_type: "fake_money",
+                                                   lolteam_ids: [1]}
+                                                   )
     end
 
     it 'gives 60%, 30% and 10% to top 3 players if bet-type = Top 3' do
       bet1.update_attribute(:bet_type, "Top 3")
-      testuser = User.create!(email: 'testtesttest@test.com', username: "testtesttest",
-                           password: 'password', password_confirmation: 'password',
-                           fake_money: 40000)
-      subject.should_receive(:sorted_users_by_score).and_return( [{ user_id: testuser.id },
-                                                                { user_id: user5.id },
-                                                                { user_id: user3.id },
-                                                                { user_id: user4.id },
-                                                                { user_id: user1.id }]
-                                                              )
-      expect(subject.payout_determiner).to match( {winner: [testuser.id,
+      expect(subject.payout_determiner).to match({ winner: [user1.id,
                                                             user5.id,
                                                             user3.id],
                                                    amount: [27,14,5],
                                                    noobbet: 5,
-                                                   money_type: "fake_money"} )
+                                                   money_type: "fake_money",
+                                                   lolteam_ids: [1,5,3] })
     end
 
-    it 'gives a weighted average to the top half if bet-type = "Top Half"' do
+    it 'gives top 50 players the same amount (buyin + 90% buyin) if bet-type = "Top Half"' do
       bet1.update_attribute(:bet_type, "Top Half")
-      testuser = User.create!(email: 'testtesttest@test.com', username: "testtesttest",
-                           password: 'password', password_confirmation: 'password',
-                           fake_money: 40000)
-      subject.should_receive(:sorted_users_by_score).and_return( [{ user_id: testuser.id },
-                                                                { user_id: user5.id },
-                                                                { user_id: user3.id },
-                                                                { user_id: user4.id },
-                                                                { user_id: user1.id }]
-                                                              )
-      expect(subject.payout_determiner).to match( {winner: [testuser.id,user5.id ],
-                                                   amount: [30,15],
+      expect(subject.payout_determiner).to match({ winner: [user1.id,user5.id ],
+                                                   amount: [19,19],
                                                    noobbet: 5,
-                                                   money_type: "fake_money"} )
+                                                   money_type: "fake_money",
+                                                   lolteam_ids: [1,5] })
     end
   end
 

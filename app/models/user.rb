@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
 
   has_many :bets, through: :bet_users
   has_many :bet_users
-
   has_many :lolteams
+  has_many :winnings
 
   validates_presence_of :username
   validates_uniqueness_of :username

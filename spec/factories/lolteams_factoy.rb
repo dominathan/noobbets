@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :lolteam do
-    user nil
-    bet  nil
+    user
+    bet
     slot1 1
     slot2 2
     slot3 3

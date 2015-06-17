@@ -21,6 +21,7 @@ class Lolteam < ActiveRecord::Base
     end
     scoring_object['total_score'] = scoring_object['slot1'] + scoring_object['slot2'] + scoring_object['slot3'] + scoring_object['slot4'] + scoring_object['slot5'] + scoring_object['slot6'] + scoring_object['slot7']
     scoring_object[:user_id] = self.user.id
+    scoring_object[:lolteam_id] = self.id
     scoring_object
   end
 

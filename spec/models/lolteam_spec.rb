@@ -101,7 +101,7 @@ RSpec.describe Lolteam, type: :model do
   end
 
   context 'when scoring the entire lolteam' do
-    it 'should return all 7 summoners names, scores, ids, and Total Score' do
+    it 'should return all 7 summoners names, scores, ids, Total Score, and lolteam_id' do
       Game.create_all_games(games,summoner1)
       Game.create_all_games(games,summoner2)
       Game.create_all_games(games,summoner3)
@@ -117,6 +117,7 @@ RSpec.describe Lolteam, type: :model do
       expect(score_object['id5']).to eq(summoner5.id)
       expect(score_object['slot5']).to eq(summoner5.final_score(bet2.id))
       expect(score_object['total_score'].round(2)).to eq(2541.84)
+      expect(score_object['lolteam_id']).to eq(stubbedLlol.id)
     end
   end
 

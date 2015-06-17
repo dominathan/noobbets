@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614012943) do
+ActiveRecord::Schema.define(version: 20150617150006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,20 @@ ActiveRecord::Schema.define(version: 20150614012943) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "winnings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "bet_id"
+    t.integer  "lolteam_id"
+    t.integer  "amount"
+    t.boolean  "real_money"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "winnings", ["bet_id"], name: "index_winnings_on_bet_id", using: :btree
+  add_index "winnings", ["lolteam_id"], name: "index_winnings_on_lolteam_id", using: :btree
+  add_index "winnings", ["user_id"], name: "index_winnings_on_user_id", using: :btree
+
   add_foreign_key "banks", "bets"
   add_foreign_key "banks", "users"
   add_foreign_key "bet_summoner_users", "bets"
@@ -213,4 +227,7 @@ ActiveRecord::Schema.define(version: 20150614012943) do
   add_foreign_key "games_summoners", "summoners"
   add_foreign_key "lolteams", "bets"
   add_foreign_key "lolteams", "users"
+  add_foreign_key "winnings", "bets"
+  add_foreign_key "winnings", "lolteams"
+  add_foreign_key "winnings", "users"
 end
