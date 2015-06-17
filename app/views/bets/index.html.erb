@@ -70,7 +70,7 @@
                 </div><!-- END COMPETITORS -->
                 <div class='tab-pane rewards-mod' id='rewards<%=index%>'>
                   <p>Reward</p><br>
-                  <p><%= bet.cost * bet.users.count %></p>
+                  <p><%= ((bet.cost * bet.users.count) * 0.9).round %></p>
                 </div> <!-- END REWARD -->
               </div> <!-- END TABS -->
             </div> <!-- END TABABLE -->
@@ -90,4 +90,3 @@
   </tbody>
 </table>
 
-<h1> MY BOONS: <%= number_to_currency(current_user.fake_money, precision: 0) %></h1>

@@ -2,7 +2,7 @@ class BetsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @bets = Bet.where(completed: false).where('start_time > ?', DateTime.now).order('start_time ASC')
+    @bets = Bet.where(completed: false).where('start_time > ?', DateTime.now).includes(:users).order('start_time ASC')
   end
 
   def show
