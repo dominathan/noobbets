@@ -17,12 +17,14 @@ RSpec.describe Bet, type: :model do
       bet.cost = 1000
       expect(bet.save).to be(false)
       bet.bet_type = "winner_take_all"
+      expect(bet.save).to be(false)
+      bet.reward = (bet.cost * bet.entrants) * (1 - Bet::NOOBBET_RAKE_PERCENTAGE)
       expect(bet.save).to be(true)
     end
 
     it 'should have start_time that begins before the end_time' do
       bet = Bet.new(entrants: 10, completed: false, bet_type: "winner",
-                    cost: 1000, start_time: DateTime.now, end_time: DateTime.now - 1.week)
+                    cost: 1000, start_time: DateTime.now, end_time: DateTime.now - 1.week, reward: 9000)
       expect(bet.save).to be(false)
       bet.end_time = bet.start_time
       expect(bet.save).to be(false)
@@ -51,6 +53,17 @@ RSpec.describe Bet, type: :model do
       Bank.create_and_account(factory_bet, user, factory_bet.cost)
       expect(factory_bet.banks.count).to be(1)
       expect(factory_bet.banks.sum(:amount)).to be(1000)
+    end
+  end
+
+  context 'noobbet_rake_percentage' do
+    it 'should equal 10%' do
+      expect(Bet::NOOBBET_RAKE_PERCENTAGE).to eq(0.1)
+    end
+
+    it "should be the same as payoutcalculator's NOOBBET_RAKE_PERCENTAGE" do
+      payt = PayoutCalculator.new(factory_bet).noobbet_rake_percentage
+      expect(Bet::NOOBBET_RAKE_PERCENTAGE).to eq(payt)
     end
   end
 
@@ -109,6 +122,27 @@ RSpec.describe Bet, type: :model do
                                                                       { 'total_score' => 3000, 'user_id' => user3.id },
                                                                       { 'total_score' => 2000, 'user_id' => user2.id },
                                                                       { 'total_score' => 1000, 'user_id' => user1.id }])
+    end
+  end
+
+  context 'when calling keep_or_destroy' do
+    before :each do
+      user10 =  FactoryGirl.create(:user)
+      user11 = FactoryGirl.create(:user)
+      factory_bet.bet_users.create!(user_id: user10.id, bet_id: factory_bet.id)
+      factory_bet.bet_users.create!(user_id: user11.id, bet_id: factory_bet.id)
+    end
+
+    it 'should destroy the bet with 2 or less users' do
+      Bet.keep_or_destroy(factory_bet.id)
+      expect(Bet.find_by(id: factory_bet.id)).to be(nil)
+    end
+
+    it 'should not destroy bets with 3 or more users' do
+      user12 = FactoryGirl.create(:user)
+      factory_bet.bet_users.create!(user_id: user12.id, bet_id: factory_bet.id)
+      Bet.keep_or_destroy(factory_bet.id)
+      expect(Bet.find_by(id: factory_bet.id)).to eq(factory_bet)
     end
   end
 

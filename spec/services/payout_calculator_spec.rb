@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'PayoutCalculator' do
-  let(:bet1) { FactoryGirl.create(:bet, cost: 10) }
+  let(:bet1) { FactoryGirl.create(:bet, cost: 10, entrants: 5, reward: 45) }
   subject { PayoutCalculator.new(bet1) }
 
   context 'when passing parameters' do
@@ -86,7 +86,7 @@ RSpec.describe 'PayoutCalculator' do
                                                    lolteam_ids: [1,5,3] })
     end
 
-    it 'gives top 50 players the same amount (buyin + 90% buyin) if bet-type = "Top Half"' do
+    it 'gives top 50% players the same amount (buyin + 90% buyin) if bet-type = "Top Half"' do
       bet1.update_attribute(:bet_type, "Top Half")
       expect(subject.payout_determiner).to match({ winner: [user1.id,user5.id ],
                                                    amount: [19,19],

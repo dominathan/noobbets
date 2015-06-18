@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 WebMock.allow_net_connect!
-GetRiotAPI.get_summoner_ids(GetTopSummoners.get_from_lolking(1))
+GetRiotAPI.get_summoner_ids(GetTopSummoners.get_from_lolking(3))
 GetRiotAPI.get_recent_summoner_games
 
 User.create(email: 'test@test.com', password: 'password', password_confirmation: 'password', username: "dominathan", fake_money: 40000)
@@ -21,11 +21,26 @@ User.create(email: 'test8@test.com', password: 'password', password_confirmation
 User.create(email: 'test9@test.com', password: 'password', password_confirmation: 'password', username: "dominathan9", fake_money: 40000)
 
 30.times do |n|
-  bet = Bet.create!(entrants: Random.rand(1..10)*10,
-              completed: false,
-              bet_type: ['Winner Take All', 'Top 3', 'Top Half'][Random.rand(0..2)],
-              cost: [100,200,500,1000,2000,5000,10000][Random.rand(0..6)],
-              start_time: DateTime.now + Random.rand(0..48).hours,
-              end_time: DateTime.now + Random.rand(48..216).hours)
-  PayoutCalculatorJob.perform_at(bet.end_time + 4.hours, bet.id)
+    cost = [100,200,500,1000,2000,5000,10000][Random.rand(0..6)]
+    entrants = Random.rand(1..10)*10
+    reward = (cost * entrants) * ( 1 - Bet::NOOBBET_RAKE_PERCENTAGE )
+    end_time = [24,48,168][Random.rand(0..2)]
+    bet = Bet.create!(entrants: entrants,
+                      completed: false,
+                      bet_type: ['Winner Take All', 'Top 3', 'Top Half'][Random.rand(0..2)],
+                      cost: cost,
+                      start_time: DateTime.now + 1.minute,
+                      end_time: DateTime.now + end_time.hours,
+                      reward: reward)
+    BetKeepOrDestroyJob.perform_at(bet.start_time,bet.id)
+end
+
+100.times do |n|
+  user = User.find(Random.rand(1..10))
+  bet = Bet.find(Random.rand(1..30))
+  Lolteam.create(user_id: user.id, bet_id: bet.id, slot1: Summoner.find(1), slot2: Summoner.find(2),
+                  slot3: Summoner.find(3), slot4: Summoner.find(4), slot5: Summoner.find(5),
+                  slot6: Summoner.find(6), slot7: Summoner.find(7))
+  bet.bet_users.create!(bet_id: bet.id, user_id: user.id)
+  Bank.create_and_account(bet, user, bet.cost)
 end

@@ -1,4 +1,11 @@
-<h1>MY NOOBBETs</h1>
+
+<ul class="nav nav-tabs nav-justified">
+  <li class="active"><a href="#">Active</a></li>
+  <li class=""><a href="#">Upcoming</a></li>
+  <li class=""><a href="#">Won</a></li>
+  <li class=""><a href="#">History</a></li>
+</ul>
+
 
 <% @bets.each do |bet| %>
   <h3>Noobbet: <%= link_to bet.bet_type, my_noobbet_path(bet.id) %></h3>

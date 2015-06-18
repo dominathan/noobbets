@@ -7,5 +7,6 @@ FactoryGirl.define do
     cost             1000
     bet_type         "Winner Take All"
     completed         false
+    reward           9000
   end
 end

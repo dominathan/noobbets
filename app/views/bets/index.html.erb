@@ -21,7 +21,7 @@
         <td><%= bet.entrants %></td>
         <td><%= bet.cost %></td>
         <td class=''>
-          <a href="" class='reward' data-toggle="modal" data-target='#betInfo<%=index%>'><%= ((bet.cost * bet.users.count)  * ( 1 - PayoutCalculator.new(bet).noobbet_rake_percentage )).round %> BOONS</a>
+          <a href="" class='reward' data-toggle="modal" data-target='#betInfo<%=index%>'><%= ((bet.reward)).round %> BOONS</a>
         </td>
         <td class="start-time"><%= bet.start_time %></td>
         <td class="end-time"><%= bet.end_time %></td>
@@ -70,7 +70,16 @@
                 </div><!-- END COMPETITORS -->
                 <div class='tab-pane rewards-mod' id='rewards<%=index%>'>
                   <p>Reward</p><br>
-                  <p><%= ((bet.cost * bet.users.count) * 0.9).round %></p>
+                  <% if bet.bet_type == "Winner Take All" %>
+                    <p><%="1st. #{bet.reward.round}" %></p>
+                  <% elsif bet.bet_type == "Top 3" %>
+                    <p><%="1st.  #{(bet.reward * 0.6).round} "%></p>
+                    <p><%="2nd.  #{(bet.reward * 0.3).round} "%></p>
+                    <p><%="3rd.  #{(bet.reward * 0.1).round} "%></p>
+                  <% elsif bet.bet_type == "Top Half" %>
+                    <p>Top Half: <%= bet.cost + (bet.cost * (1 - Bet::NOOBBET_RAKE_PERCENTAGE)) %> </p>
+                  <% end %>
+
                 </div> <!-- END REWARD -->
               </div> <!-- END TABS -->
             </div> <!-- END TABABLE -->

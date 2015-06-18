@@ -14,11 +14,11 @@ class PayoutCalculator
   end
 
   def amount_due_to_users
-    (bet.banks.sum(:amount) * ( 1 - noobbet_rake_percentage )).round
+    bet.reward
   end
 
   def amount_due_to_noobbets
-    (bet.banks.sum(:amount) * ( noobbet_rake_percentage )).round
+    ( bet.reward / ( 1 - noobbet_rake_percentage ) ) * noobbet_rake_percentage
   end
 
   def payout_determiner
