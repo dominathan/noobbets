@@ -18,9 +18,7 @@ class Bet < ActiveRecord::Base
     if bet.users.count < 3
       # Give money back to the original entries
       # and destroy the bet...
-      if bet.users.count != 0
-        bet.users.each { |usr| usr.update_attribute(:fake_money, usr.fake_money + bet.cost) }
-      end
+      bet.users.each { |usr| usr.update_attribute(:fake_money, (usr.fake_money + bet.cost) ) }
       bet.destroy
       return false
     else
