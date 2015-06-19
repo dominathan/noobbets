@@ -25,11 +25,12 @@ User.create(email: 'test9@test.com', password: 'password', password_confirmation
     entrants = Random.rand(1..10)*10
     reward = (cost * entrants) * ( 1 - Bet::NOOBBET_RAKE_PERCENTAGE )
     end_time = [24,48,168][Random.rand(0..2)]
+    start_time = [1,10,60][Random.rand(0..2)]
     bet = Bet.create!(entrants: entrants,
                       completed: false,
                       bet_type: ['Winner Take All', 'Top 3', 'Top Half'][Random.rand(0..2)],
                       cost: cost,
-                      start_time: DateTime.now + 1.minute,
+                      start_time: DateTime.now + start_time.minutes,
                       end_time: DateTime.now + end_time.hours,
                       reward: reward)
     BetKeepOrDestroyJob.perform_at(bet.start_time,bet.id)
