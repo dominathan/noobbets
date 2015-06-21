@@ -2,7 +2,7 @@ class SummonersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @summoners = Summoner.order('total_score DESC')
+    @summoners = Summoner.order('total_score DESC').limit(40)
   end
 
   def show

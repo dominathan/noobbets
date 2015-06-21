@@ -12,7 +12,7 @@
 
   def new
     @lolteam = Lolteam.new
-    @summoners = Summoner.order('total_score DESC')
+    @summoners = Summoner.order('total_score DESC').map { |summoner| [summoner.name, summoner.id] }
   end
 
   def edit
