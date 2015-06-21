@@ -12,6 +12,9 @@
         <% if @bet.end_time > DateTime.now %>
           | Timing Remaining: <span class='time-remaining'><%= @bet.end_time - DateTime.now %></span>
         <% end %>
+        <% if @bet.start_time > DateTime.now %>
+          | Starts In: <span class='time-remaining'><%= @bet.start_time - DateTime.now  %></span>
+        <% end %>
         </h4>
       </div>
 
