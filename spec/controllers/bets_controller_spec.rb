@@ -46,6 +46,7 @@ RSpec.describe BetsController, type: :controller do
     it 'should let a user see individual noobbets' do
       get :show_noobbet, { bet_id: bet.id, id: lolteam.id }
       expect(response).to render_template(:show_noobbet)
+      expect(assigns(:bet)).to eq(bet)
     end
   end
 end

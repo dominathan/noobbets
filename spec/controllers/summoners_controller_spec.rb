@@ -16,6 +16,7 @@ RSpec.describe SummonersController, type: :controller do
     it "returns http success" do
       get :show, { id: summoner.id }
       expect(response).to have_http_status(:success)
+      expect(assigns(:summoner)).to eq(summoner)
     end
   end
 
