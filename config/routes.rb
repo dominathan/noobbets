@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   get '/my_noobbets', to: "bets#my_noobbets"
-  get '/my_noobbet/:id', to: "bets#show_noobbet", as: "my_noobbet"
+  get '/my_noobbet/:bet_id/team/:id', to: "bets#show_noobbet", as: "my_noobbet"
   get '/my_active_noobbets', to: "bets#my_active_noobbets"
   get '/my_upcoming_noobbets', to: "bets#my_upcoming_noobbets"
   get '/my_won_noobbets', to: "bets#my_won_noobbets"

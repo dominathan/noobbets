@@ -12,12 +12,12 @@
       <!-- <th>Award</th> -->
     </thead>
     <tbody>
-      <% @bets.each do |bet| %>
-      <tr>
-        <td><%= link_to bet.bet_type, my_noobbet_path(bet.id) %></td>
-        <!-- <td><%= "Position" %></td> -->
-        <!-- <td><%= "Amount Due" %></td> -->
-      </tr>
+      <% @lolteams.each do |lol| %>
+        <tr>
+          <td><%= link_to lol.bet.bet_type, my_noobbet_path(lol.bet.id,lol) %></td>
+          <!-- <td><%= "Position" %></td> -->
+          <!-- <td><%= "Amount Due" %></td> -->
+        </tr>
       <% end %>
     </tbody>
   </table>
