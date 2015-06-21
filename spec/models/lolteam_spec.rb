@@ -28,10 +28,8 @@ RSpec.describe Lolteam, type: :model do
       lol.slot5 = summoner5.id
       lol.slot6 = summoner6.id
       lol.slot7 = summoner7.id
-      expect(lol.save).to be(false)
-      lol.user_id = user1.id
-      expect(lol.save).to be(false)
       lol.bet_id = bet1.id
+      lol.user_id = user1.id
       expect(lol.save).to be(true)
     end
 
@@ -46,19 +44,7 @@ RSpec.describe Lolteam, type: :model do
       expect(lol.save).to be(true)
     end
 
-    #This Test is failing because the bet.user_count is being called on the create action in the
-    #controller, and therefore is difficult to test from the model.
-    # it 'should update the user count of the bet + 1' do
-    #   bet1.update_attributes(user_count: 9, entrants: 10)
-    #   expect(bet1.user_count).to be(9)
-    #   lol = Lolteam.new(slot1: summoner1.id, slot2: summoner2.id, user_id: user1.id, bet_id: bet1.id,
-    #                     slot3: summoner3.id, slot4: summoner4.id, slot5: summoner5.id, slot6: summoner6.id,
-    #                     slot7: summoner7.id)
-    #   expect(lol.save).to be(true)
-    #   expect(bet1.user_count).to be(10)
-    # end
-
-    it 'cannot be saved if the bet.users.count is over the bet.max_entrants' do
+    it 'cannot be saved if the bet.users.count is over the bet.entrants' do
       bet1.update_attributes(entrants: 2)
       bet1.bet_users.create!(user_id: user1.id,bet_id: bet1.id)
       lol = Lolteam.new(slot1: summoner1.id, slot2: summoner2.id, user_id: user1.id, bet_id: bet1.id,
@@ -69,7 +55,12 @@ RSpec.describe Lolteam, type: :model do
       lol2 = Lolteam.new(slot1: summoner1.id, slot2: summoner2.id, user_id: user2 .id, bet_id: bet1.id,
                   slot3: summoner3.id, slot4: summoner4.id, slot5: summoner5.id, slot6: summoner6.id,
                   slot7: summoner7.id)
-      expect(lol2.save).to be(false)
+      expect(lol2.save).to be(true)
+      bet1.bet_users.create!(user_id: user3.id,bet_id: bet1.id)
+      lol3 = Lolteam.new(slot1: summoner1.id, slot2: summoner2.id, user_id: user2 .id, bet_id: bet1.id,
+                  slot3: summoner3.id, slot4: summoner4.id, slot5: summoner5.id, slot6: summoner6.id,
+                  slot7: summoner7.id)
+      expect(lol3.save).to be(false)
     end
 
     it 'cannot use the same summoner more than once' do

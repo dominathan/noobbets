@@ -19,6 +19,7 @@
   end
 
   def create
+    @summoners = Summoner.order('total_score DESC').map { |summoner| [summoner.name, summoner.id] }
     @lolteam = Lolteam.new(lolteam_params)
     @lolteam.bet_id = @bet.id
     @lolteam.user_id = current_user.id
