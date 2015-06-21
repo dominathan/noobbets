@@ -7,10 +7,14 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading"><h1><%= "#{@bet.bet_type} Payout: #{@bet.reward}" %></h1></div>
-      <div class="panel-body"><h4><%= "Competitors: #{@bet.users.count} | Entry: #{@bet.cost} Boons " %>
-      <% if @bet.end_time > DateTime.now %>
-      | Timing Remaining: <span class='time-remaining'><%= @bet.end_time - DateTime.now %></span></h4></div>
-      <% end %>
+      <div class="panel-body">
+        <h4><%= "Competitors: #{@bet.users.count} | Entry: #{@bet.cost} Boons " %>
+        <% if @bet.end_time > DateTime.now %>
+          | Timing Remaining: <span class='time-remaining'><%= @bet.end_time - DateTime.now %></span>
+        <% end %>
+        </h4>
+      </div>
+
 
       <table class="table table-hover">
         <thead class="">
