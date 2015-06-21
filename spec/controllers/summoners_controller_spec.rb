@@ -2,16 +2,19 @@ require 'rails_helper'
 
 RSpec.describe SummonersController, type: :controller do
 
-  describe "GET #index" do
-    xit "returns http success" do
+    context 'when signed in' do
+      let(:summoner) { FactoryGirl.create(:summoner) }
+      before :each do
+        login_with create(:user)
+      end
+
+    it "returns http success" do
       get :index
       expect(response).to have_http_status(:success)
     end
-  end
 
-  describe "GET #show" do
-    xit "returns http success" do
-      get :show
+    it "returns http success" do
+      get :show, { id: summoner.id }
       expect(response).to have_http_status(:success)
     end
   end
