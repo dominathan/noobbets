@@ -17,6 +17,7 @@ betsPage = {
   initStyling: function() {
     betsPage.styleStartTimes();
     betsPage.styleEndTimes();
+    betsPage.styleTimeRemaining();
     betsPage.startDataTable();
   },
   initEvents: function() {
@@ -33,6 +34,9 @@ betsPage = {
   timezoneSetter: function(timeValue) {
     return moment(timeValue).format("MMMM DD | hh:mm A");
   },
+  durationSetter: function(timeValue) {
+    return moment.duration(timeValue * 1000).humanize();
+  },
   styleStartTimes: function() {
     var $startTimes = $('.start-time');
     $.each($startTimes, function(idx, val) {
@@ -47,12 +51,18 @@ betsPage = {
       $(val).html(newTime);
     });
   },
+  styleTimeRemaining: function() {
+    var $timeRemaining = $('.time-remaining');
+    $.each($timeRemaining, function(idx, val) {
+      var newTime = betsPage.durationSetter($(val).html());
+      $(val).html(newTime);
+    });
+  },
   startDataTable: function() {
     $('#lobby').DataTable({
       "scrollY": "400px",
       "scrollCollapse": true,
       "paging": false,
-      "order": [[5,'asc']],
       "bInfo" : false
     });
   },

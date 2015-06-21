@@ -1,0 +1,27 @@
+<%= render 'bets/shared/noobbets_tabs' %>
+
+<% if @bets.empty?  %>
+  <h1><%= "You have no Noobbets in the money." %></h1>
+<% else %>
+
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  <table class="table table-hover">
+    <thead>
+      <th>Contest Type</th>
+      <!-- <th>Position</th> -->
+      <!-- <th>Award</th> -->
+    </thead>
+    <tbody>
+      <% @bets.each do |bet| %>
+      <tr>
+        <td><%= link_to bet.bet_type, my_noobbet_path(bet.id) %></td>
+        <!-- <td><%= "Position" %></td> -->
+        <!-- <td><%= "Amount Due" %></td> -->
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<% end %>

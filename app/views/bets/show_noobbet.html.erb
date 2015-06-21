@@ -1,44 +1,84 @@
-<h1>Rankings</h1>
+<div class="row">
+  <%= render 'bets/shared/noobbets_tabs' %>
+</div>
 
-<table class="table table-hover">
-  <thead>
-    <th>Position</th>
-    <th>Username</th>
-    <th>Total Score</th>
-    <th>Summoner 1</th>
-    <th>Summoenr 2</th>
-    <th>Summoner 3</th>
-    <th>Summoner 4</th>
-    <th>Summoner 5</th>
-    <th>Summoner 6</th>
-    <th>Summoner 7</th>
-  </thead>
-  <tbody>
-  <% @teams.each_with_index do |lol,idx| %>
-    <tr>
-      <td><%= idx + 1 %></td>
-      <td><%= link_to Lolteam.find(lol[0]).user.username, "#" %></td>
-      <td></td>
-      <td><%= lol[1]['name1']%></td>
-      <td><%= lol[1]['name2']%></td>
-      <td><%= lol[1]['name3']%></td>
-      <td><%= lol[1]['name4']%></td>
-      <td><%= lol[1]['name5']%></td>
-      <td><%= lol[1]['name6']%></td>
-      <td><%= lol[1]['name7']%></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td><%= lol[1]['total_score']%></td>
-      <td><%= lol[1]['slot1']%></td>
-      <td><%= lol[1]['slot2']%></td>
-      <td><%= lol[1]['slot3']%></td>
-      <td><%= lol[1]['slot4']%></td>
-      <td><%= lol[1]['slot5']%></td>
-      <td><%= lol[1]['slot6']%></td>
-      <td><%= lol[1]['slot7']%></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h1><%= "#{@bet.bet_type} Payout: #{@bet.reward}" %></h1></div>
+      <div class="panel-body"><h4><%= "Competitors: #{@bet.users.count} | Entry: #{@bet.cost} Boons " %>| Timing Remaining: <span class='time-remaining'><%= @bet.end_time - DateTime.now %></span></h4></div>
+
+      <table class="table table-hover">
+        <thead class="">
+          <th>Position</th>
+          <th>Username</th>
+          <th>Total Score</th>
+          <th>Amount</th>
+        </thead>
+        <tbody>
+          <% @user_objects.each_with_index do |usr, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= User.find(usr[:user_id]).username %></td>
+            <td><%= usr['total_score'] %></td>
+            <td><%= @bet.reward %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+
+    <div class="well well-lg noobbets-well-heading">
+      <div class="col-lg-3">
+        Position: <%= @user_objects.index { |obj| obj[:user_id] == current_user.id } + 1 %>
+        <!-- AND LOLTEAM_ID == PARAMS -->
+      </div>
+      <div class="col-lg-5">
+        <%= current_user.username %><br>
+
+      </div>
+      <div class="col-lg-4">
+        <%= "Total Score: #{@current_user_team.first['total_score']}" %>
+      </div>
+    </div>
+
+    <table class="table table-hover">
+      <tbody>
+        <tr>
+          <td><%= @current_user_team.first['name1']%></td>
+          <td><%= @current_user_team.first['slot1']%></td>
+        </tr>
+        <tr>
+          <td><%= @current_user_team.first['name2']%></td>
+          <td><%= @current_user_team.first['slot2']%></td>
+        </tr>
+        <tr>
+          <td><%= @current_user_team.first['name3']%></td>
+          <td><%= @current_user_team.first['slot3']%></td>
+        </tr>
+        <tr>
+          <td><%= @current_user_team.first['name4']%></td>
+          <td><%= @current_user_team.first['slot4']%></td>
+        </tr>
+        <tr>
+          <td><%= @current_user_team.first['name5']%></td>
+          <td><%= @current_user_team.first['slot5']%></td>
+        </tr>
+        <tr>
+          <td><%= @current_user_team.first['name6']%></td>
+          <td><%= @current_user_team.first['slot6']%></td>
+        </tr>
+        <tr>
+          <td><%= @current_user_team.first['name7']%></td>
+          <td><%= @current_user_team.first['slot7']%></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

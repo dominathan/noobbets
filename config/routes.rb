@@ -7,6 +7,11 @@ Rails.application.routes.draw do
 
   get '/my_noobbets', to: "bets#my_noobbets"
   get '/my_noobbet/:id', to: "bets#show_noobbet", as: "my_noobbet"
+  get '/my_active_noobbets', to: "bets#my_active_noobbets"
+  get '/my_upcoming_noobbets', to: "bets#my_upcoming_noobbets"
+  get '/my_won_noobbets', to: "bets#my_won_noobbets"
+  get '/completed_noobbets', to: "bets#my_finished_noobbets", as: "my_finished_noobbets"
+
   resources :bets do
     resources :lolteams, only: [:new, :create, :index]
   end

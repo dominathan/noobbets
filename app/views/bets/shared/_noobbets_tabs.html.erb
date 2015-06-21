@@ -1,0 +1,8 @@
+
+<ul class="nav nav-tabs nav-justified">
+  <li class="<%= is_active?('my_active_noobbets')%>"><%= link_to 'Active', my_active_noobbets_path %></li>
+  <li class="<%= is_active?('my_upcoming_noobbets')%>"><%= link_to 'Upcoming', my_upcoming_noobbets_path%></li>
+  <li class="<%= is_active?('my_won_noobbets')%>"><%= link_to 'Won', my_won_noobbets_path %></li>
+  <li class="<%= is_active?('my_finished_noobbets')%>"><%= link_to 'History', my_finished_noobbets_path %></li>
+</ul>
+<br>

@@ -11,6 +11,7 @@ class PayoutCalculatorJob < ActiveJob::Base
                      real_money: payout_object[:money_type] == "fake_money" ? false : true
                     )
     end
+    Bet.find(bet_id).update_attribute(:completed, true)
   end
 
 end

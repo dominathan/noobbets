@@ -29,7 +29,7 @@ class Lolteam < ActiveRecord::Base
   private
     def max_entrants_limit_reached?
       if self.bet.users.count > self.bet.entrants
-        errors.add :base, "Max number of users has been reached.  Please join another bet."
+        errors.add :base, "Max number of users has been reached.  Please choose another Noobbet."
       end
     end
 
