@@ -4,16 +4,6 @@ class Summoner < ActiveRecord::Base
   validates_presence_of :name, :lol_id
   validates_uniqueness_of :lol_id
 
-  # 2 points per kill
-  # -0.5 points per death
-  # 1.5 points per assist
-  # 0.01 points per creep kill
-  # 2 points for a triple kill
-  # 5 points for a quadra kill (doesn't also count as a triple kill)
-  # 10 points for a penta kill (doesn't also count as a quadra kill)
-  # 3 points for first blood
-  # 3 points for win
-
   def remove_lol_game_id_duplicates
     grouped_by_lolgame = games.group_by { |val| val.lol_game_id }
     grouped_by_lolgame.values.each do |duplicates|
