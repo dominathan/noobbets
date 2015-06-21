@@ -5,7 +5,7 @@ class Bet < ActiveRecord::Base
   has_many :banks, dependent: :destroy
 
   validates_presence_of :start_time, :end_time, :cost, :bet_type, :entrants, :reward
-  before_save :completed_starts_false, :end_time_after_start
+  before_create :completed_starts_false, :end_time_after_start
 
   NOOBBET_RAKE_PERCENTAGE = 0.1
 
