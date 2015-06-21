@@ -24,7 +24,7 @@
           <tr>
             <td><%= index + 1 %></td>
             <td><%= User.find(usr[:user_id]).username %></td>
-            <td><%= usr['total_score'] %></td>
+            <td><%= usr['total_score'].round(2) %></td>
             <td><%= @bet.reward %></td>
           </tr>
           <% end %>
@@ -47,7 +47,7 @@
 
       </div>
       <div class="col-lg-4">
-        <%= "Total Score: #{@current_user_team.first['total_score']}" %>
+        <%= "Total Score: #{@current_user_team.first['total_score'].round(2)}" %>
       </div>
     </div>
 
