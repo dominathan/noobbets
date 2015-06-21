@@ -63,7 +63,8 @@ betsPage = {
       "scrollY": "400px",
       "scrollCollapse": true,
       "paging": false,
-      "bInfo" : false
+      "bInfo" : false,
+      "bSort": false
     });
   },
   toggleActiveClass: function(klass) {
