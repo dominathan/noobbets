@@ -10,7 +10,7 @@
       <div class="panel-body">
         <h4><%= "Competitors: #{@bet.users.count} | Entry: #{@bet.cost} Boons " %>
         <% if @bet.end_time > DateTime.now %>
-          | Timing Remaining: <span class='time-remaining'><%= @bet.end_time - DateTime.now %></span>
+          | Time Remaining: <span class='time-remaining'><%= @bet.end_time - DateTime.now %></span>
         <% end %>
         <% if @bet.start_time > DateTime.now %>
           | Starts In: <span class='time-remaining'><%= @bet.start_time - DateTime.now  %></span>
@@ -24,7 +24,7 @@
           <th>Position</th>
           <th>Username</th>
           <th>Total Score</th>
-          <th>Amount</th>
+          <th>Reward</th>
         </thead>
         <tbody>
           <% @user_objects.each_with_index do |usr, index| %>
@@ -46,7 +46,7 @@
 
     <div class="well well-lg noobbets-well-heading">
       <div class="col-lg-3">
-        Position: <%= @user_objects.index { |obj| obj[:user_id] == current_user.id } + 1 %>
+        Position: <%= @user_objects.index { |obj| obj[:user_id] == current_user.id && obj[:lolteam_id] == params[:id].to_i } + 1 %>
         <!-- AND LOLTEAM_ID == PARAMS -->
       </div>
       <div class="col-lg-5">
