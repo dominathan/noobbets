@@ -57,6 +57,14 @@
     end
   end
 
+  def score
+    @lolteam = Lolteam.find(params[:id])
+    @score = @lolteam.score_user_lolteam
+    respond_to do |format|
+      format.json { render json: @score }
+    end
+  end
+
   private
     def set_lolteam
       @lolteam = Lolteam.find(params[:id])

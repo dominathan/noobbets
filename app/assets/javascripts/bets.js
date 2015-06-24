@@ -4,7 +4,7 @@
 $(document).ready(function() {
 
   betsPage.init();
-
+  showBetPage.init();
 
 });
 
@@ -80,5 +80,55 @@ betsPage = {
     if(klass === 'rewards-mod') {
       $('.rewards-mod').addClass('active');
     }
+  }
+}
+
+showBetPage = {
+  init: function() {
+    showBetPage.initEvents();
+    showBetPage.initStyling();
+  },
+  initEvents: function() {
+    $('.show-lolteam').on('click', function(event) {
+      event.preventDefault;
+      $('.hidden').removeClass('hidden');
+      $('.show-me').remove()
+      showBetPage.getUserLolteam(this.value,this.text);
+    })
+  },
+  initStyling: function() {
+    $('.hidden').css("display: none");
+  },
+  getUserLolteam: function(lolteamId,userName){
+    var myURL = window.location.href.split("/");
+    var betId = myURL[myURL.length - 3];
+    $.ajax({
+      method: "GET",
+      url: "/bets/" + betId + "/lolteams/" + lolteamId + "/score",
+      success: function(data) {
+        return showBetPage.appendLolteamData(data,userName);
+      },
+      error: function(data) {
+        return data;
+      },
+    });
+  },
+  appendLolteamData: function(data,userName) {
+    $('#name1').text(data['name1']);
+    $('#name2').text(data['name2']);
+    $('#name3').text(data['name3']);
+    $('#name4').text(data['name4']);
+    $('#name5').text(data['name5']);
+    $('#name6').text(data['name6']);
+    $('#name7').text(data['name7']);
+    $('#slot1').text(data['slot1']);
+    $('#slot2').text(data['slot2']);
+    $('#slot3').text(data['slot3']);
+    $('#slot4').text(data['slot4']);
+    $('#slot5').text(data['slot5']);
+    $('#slot6').text(data['slot6']);
+    $('#slot7').text(data['slot7']);
+    $('#new-username').text(userName);
+    $('#total-score-for-user').text(data['total-score']);
   }
 }

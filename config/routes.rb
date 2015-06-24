@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   get '/completed_noobbets', to: "bets#my_finished_noobbets", as: "my_finished_noobbets"
 
   resources :bets do
-    resources :lolteams, only: [:new, :create, :index]
+    resources :lolteams, only: [:new, :create, :index] do
+      get :score, on: :member
+    end
   end
 
   get '/summoners/:id/score', to: "summoners#score", as: "score_summoner"

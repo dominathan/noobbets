@@ -30,7 +30,7 @@
           <% @user_objects.each_with_index do |usr, index| %>
           <tr>
             <td><%= index + 1 %></td>
-            <td><%= User.find(usr[:user_id]).username %></td>
+            <td><option class='show-lolteam' value="<%= usr[:lolteam_id] %>"><%= User.find(usr[:user_id]).username %></option></td>
             <td><%= usr['total_score'].round(2) %></td>
             <td><%= @bet.reward %></td>
           </tr>
@@ -91,4 +91,59 @@
       </tbody>
     </table>
   </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 show-me">
+     <h3>Click a competitor's name to look at their team.</h3>
+    </div>
+    <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12 hidden'>
+
+      <div class="well well-lg noobbets-well-heading">
+        <div class="col-lg-3">
+
+          <span id="new-username"></span>
+        </div>
+        <div class="col-lg-5">
+
+
+        </div>
+        <div class="col-lg-4">
+          Total Score: <span id='total-score-for-user'></span>
+        </div>
+      </div>
+
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <td id="name1"></td>
+            <td id="slot1"></td>
+          </tr>
+          <tr>
+            <td id="name2"></td>
+            <td id="slot2"></td>
+          </tr>
+          <tr>
+            <td id="name3"></td>
+            <td id="slot3"></td>
+          </tr>
+          <tr>
+            <td id="name4"></td>
+            <td id="slot4"></td>
+          </tr>
+          <tr>
+            <td id="name5"></td>
+            <td id="slot5"></td>
+          </tr>
+          <tr>
+            <td id="name6"></td>
+            <td id="slot6"></td>
+          </tr>
+          <tr>
+            <td id="name7"></td>
+            <td id="slot7"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
