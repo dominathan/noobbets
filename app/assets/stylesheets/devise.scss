@@ -1,0 +1,79 @@
+.center-form {
+  width: 33%;
+  margin-top: 8%;
+}
+
+.form-group input {
+  min-height: 45px;
+}
+
+input.btn.btn-lg.btn-success {
+  width: 100%;
+  max-height: 40px;
+}
+
+.text-muted {
+  color: #90939a;
+}
+
+.text-center h2 {
+  font-weight: bold;
+}
+
+.btn {
+  font-weight: bold;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+}
+
+.btn-primary {
+  background-color: #4285f4;
+}
+
+.btn-primary:hover {
+  background-color: #3367d6;
+}
+
+.btn-success {
+  background-color: #0f9d58;
+}
+
+.btn-success:hover {
+  background-color: #196c4a;
+}
+
+.btn-danger {
+  background-color: #db4437;
+}
+
+.btn-danger:hover {
+  background-color: #b04c3b;
+}
+
+.btn-group-vertical .btn {
+  margin-bottom: 10px;
+}
+
+.btn-group-vertical > .btn:first-child:not(:last-child) {
+  border-radius: 2px;
+}
+
+.btn-group-vertical > .btn:not(:first-child):not(:last-child) {
+  border-radius: 2px;
+}
+
+.btn-group-vertical > .btn:last-child:not(:first-child) {
+  border-radius: 2px;
+}
+
+.btn-lg {
+  font-size: 14px;
+}
+
+.btn [class^='ion-'] {
+  margin-right: 5px;
+}
+
+.btn .fa {
+  margin-right: 5px;
+}

@@ -10,9 +10,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 <body>
-  <% if controller.controller_name == "homes" %>
-    <%= render 'shared/navbar' %>
-  <% else %>
+  <% if controller.controller_name != "homes" %>
     <%= render 'shared/default_nav' %>
   <% end %>
 

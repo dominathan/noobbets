@@ -1,9 +1,11 @@
-@import "homes";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
 @import "lolteams";
 @import "bets";
+@import "homes";
+@import "devise";
+
 
 /* Flash Messages */
 .alert-error {
@@ -34,6 +36,6 @@
     text-align: left;
  }
 
-.container {
-    margin-top: 30px;
-}
+ .text-center {
+    margin: 0 auto;
+ }
