@@ -14,12 +14,12 @@
     <%= render 'shared/default_nav' %>
   <% end %>
 
-  <div class="container">
+  <div class="container container-move-down">
     <%= render 'shared/devise_flash_messages' %>
   </div>
 
   <% if controller.controller_name != "homes" %>
-    <%= content_tag :div, yield, class: "container container-move-down" %>
+    <%= content_tag :div, yield, class: "container" %>
   <% else %>
     <%= yield %>
   <% end %>
