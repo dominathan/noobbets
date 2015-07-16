@@ -19,7 +19,7 @@
   </div>
 
   <% if controller.controller_name != "homes" %>
-    <%= content_tag :div, yield, class: "container" %>
+    <%= content_tag :div, yield, class: "container container-move-down" %>
   <% else %>
     <%= yield %>
   <% end %>
