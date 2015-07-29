@@ -10,16 +10,16 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 <body>
+ <!-- THIS SCREEN IS UGLY -->
   <% if controller.controller_name != "homes" %>
     <%= render 'shared/default_nav' %>
   <% end %>
 
-  <div class="container container-move-down">
-    <%= render 'shared/devise_flash_messages' %>
-  </div>
-
   <% if controller.controller_name != "homes" %>
-    <%= content_tag :div, yield, class: "container" %>
+    <div class='container container-move-down'>
+      <%= render 'shared/devise_flash_messages' %>
+      <%= yield %>
+    </div>
   <% else %>
     <%= yield %>
   <% end %>

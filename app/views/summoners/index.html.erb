@@ -15,18 +15,23 @@
   <th>Wins</th>
 </thead>
 <tbody>
+  <% cache(['summoner_list', @summoners.map(&:id), @summoners.maximum(:updated_at)]) do %>
   <% @summoners.each do |summoner| %>
-  <tr>
-    <td><%= link_to summoner.name, summoner_path(summoner.id) %></td>
-    <td><%= summoner.final_score_over_user_timeframe(DateTime.now - 7.days,DateTime.now) %></td>
-    <td><%= summoner.score_summoner_games_over_user_timeframe('champions_killed',DateTime.now - 7.days,DateTime.now) %></td>
-    <td><%= summoner.score_summoner_games_over_user_timeframe('num_deaths',DateTime.now - 7.days,DateTime.now) %></td>
-    <td><%= summoner.score_summoner_games_over_user_timeframe('assists',DateTime.now - 7.days,DateTime.now) %></td>
-    <td><%= summoner.score_summoner_games_over_user_timeframe('minions_killed',DateTime.now - 7.days,DateTime.now) %></td>
-    <td><%= summoner.score_summoner_games_over_user_timeframe('triple_kills',DateTime.now - 7.days,DateTime.now) %></td>
-    <td><%= summoner.score_summoner_games_over_user_timeframe('quadra_kills',DateTime.now - 7.days,DateTime.now) %></td>
-    <td><%= summoner.score_summoner_games_over_user_timeframe('penta_kills',DateTime.now - 7.days,DateTime.now) %></td>
-    <td><%= summoner.score_summoner_games_over_user_timeframe('win',DateTime.now - 7.days,DateTime.now) %></td>
-  </tr>
+    <% cache(summoner) do %>
+
+      <tr>
+        <td><%= link_to summoner.name, summoner_path(summoner.id) %></td>
+        <td><%= summoner.final_score_over_user_timeframe(DateTime.now - 7.days,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_user_timeframe('champions_killed',DateTime.now - 7.days,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_user_timeframe('num_deaths',DateTime.now - 7.days,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_user_timeframe('assists',DateTime.now - 7.days,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_user_timeframe('minions_killed',DateTime.now - 7.days,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_user_timeframe('triple_kills',DateTime.now - 7.days,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_user_timeframe('quadra_kills',DateTime.now - 7.days,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_user_timeframe('penta_kills',DateTime.now - 7.days,DateTime.now) %></td>
+        <td><%= summoner.score_summoner_games_over_user_timeframe('win',DateTime.now - 7.days,DateTime.now) %></td>
+      </tr>
+    <% end %>
+  <% end %>
 </tbody>
 <% end %>
