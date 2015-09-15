@@ -1,28 +1,16 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+NOOBBETS is an opensource platform that allows fantasy sports style betting with League of Legends.  Feel free to use or visit and noobbets.herokuapp.com
 
-Things you may want to cover:
+At the moment, it's all fake money.  The information is pulled from RiotGames API every hour on the 30 minute mark to find the most up-to-date summoner stats.  You will need to add your own RiotGames API key to the application.yml file.  Ideally, someone would run this through Riot Games Review so we can up our rate limit.
 
-* Ruby version
+The app is heavily tested on the back end, could do some more tests if you plan on making this with real money. I'd love anyone who is interested to help out.
 
-* System dependencies
+Things to do:
 
-* Configuration
+* Add other similar games
+* Work on styling
+* Finalize 0.0.1 before sending to Riot Games for increased access
+* Things I'm not thinking of at the moment.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Happy to walk anyone through it if they are interested in contributing; it has been a very fun project.
