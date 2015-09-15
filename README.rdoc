@@ -1,6 +1,6 @@
 == README
 
-NOOBBETS is an opensource platform that allows fantasy sports style betting with League of Legends.  Feel free to use or visit and noobbets.herokuapp.com
+NOOBBETS is an opensource platform that allows fantasy sports style betting with League of Legends.  Feel free to use or visit at noobbets.herokuapp.com
 
 At the moment, it's all fake money.  The information is pulled from RiotGames API every hour on the 30 minute mark to find the most up-to-date summoner stats.  You will need to add your own RiotGames API key to the application.yml file.  Ideally, someone would run this through Riot Games Review so we can up our rate limit.
 
